@@ -9,11 +9,19 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        <p className="card__content card__content-text">{ this.props.text }</p>
-        { this.props.emoji !== null ? 
-        <p className="card__content card__content-emoji">{ emoji.getUnicode(this.props.emoji) }</p>
-        :
-        '' }
+        <div className="card__content">
+          <p className="card__content-text">{ this.props.text }</p>
+          { this.props.emoji !== null ? 
+          <p className="card__content-emoji">{ emoji.getUnicode(this.props.emoji) }</p>
+          :
+          '' }
+        </div>
+        <button
+          type="button"
+          className="card__delete"
+          aria-label="Delete"
+          onClick={() => { this.props.deleteCardCallback(this.props.id) }}
+        >Delete</button>
       </div>
     )
   }

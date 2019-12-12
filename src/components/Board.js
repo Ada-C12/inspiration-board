@@ -17,12 +17,22 @@ class Board extends Component {
     };
   }
 
+  deleteCard = (id) => {
+    console.log(`delete ${id}`);
+  }
+
   componentDidMount () {
     axios.get(`${this.props.url}${this.props.boardName}/cards`)
       .then((response) => {
         // this.setState({ cards: response.data });
         const cards = response.data.map((card) => {
-          return <Card key={ card.card.id } text={ card.card.text } emoji={ card.card.emoji } />;
+          return <Card 
+            key={ card.card.id } 
+            id={ card.card.id } 
+            text={ card.card.text } 
+            emoji={ card.card.emoji } 
+            deleteCardCallback={ this.deleteCard }
+          />;
         });
         // console.log(cards);
         this.setState({ cards: cards });
