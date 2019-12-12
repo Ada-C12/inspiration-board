@@ -23,7 +23,7 @@ class Board extends Component {
           return(
             <Card 
               text={card.text}
-              emoji={card.Emoji}
+              emoji={(card.emoji) ? (card.emoji) : (card.Emoji)}
               key={i}
             />
           );
