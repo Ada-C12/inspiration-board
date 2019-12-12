@@ -17,14 +17,9 @@ class Board extends Component {
     };
   }
 
-  deleteCard = (id) => {
-    console.log(`delete ${id}`);
-  }
-
   componentDidMount () {
-    axios.get(`${this.props.url}${this.props.boardName}/cards`)
+    axios.get(`${this.props.url}boards/${this.props.boardName}/cards`)
       .then((response) => {
-        // this.setState({ cards: response.data });
         const cards = response.data.map((card) => {
           return <Card 
             key={ card.card.id } 
@@ -34,8 +29,25 @@ class Board extends Component {
             deleteCardCallback={ this.deleteCard }
           />;
         });
-        // console.log(cards);
+        
+        // console.log(cards.findIndex((card) => {return card.key === "2532"}));
         this.setState({ cards: cards });
+      })
+      .catch((error) => {
+        this.setState({ errors: error.message });
+      });
+  }
+
+  deleteCard = (id) => {
+    console.log(`delete ${id}`);
+    
+    axios.delete(`${this.props.url}cards/${id}`)
+      .then((response) => {
+        const cards = this.state.cards.filter((card) => card.key !== `${id}`);
+
+        this.setState({
+          cards,
+        });
       })
       .catch((error) => {
         this.setState({ errors: error.message });
