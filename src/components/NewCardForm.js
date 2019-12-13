@@ -18,7 +18,7 @@ class NewCardForm extends Component {
   onSubmitNote = (event) => {
     event.preventDefault();
 
-    this.props.addPoemLineCallback(recentLine);
+    // this.props.addNoteCallback(note);
 
     this.setState({
       note: '',
@@ -49,7 +49,6 @@ class NewCardForm extends Component {
               type="text" 
               onChange={this.onInputChange}
               value={this.state.note}
-              className={}
             />
           </div>
 

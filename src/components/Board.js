@@ -8,18 +8,55 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cards: [],
     };
   }
 
+  componentDidMount(){
+    axios.get(this.props.url)
+    .then((response) => {
+      const cards = response.data.map((cardKey, values) => {
+        return (
+          Object.values(cardKey) 
+        )
+      })
+      this.setState({
+        cards: cards
+      })
+    })
+    .catch((error) => {
+      this.setState({
+        error: 'Something went wrong'
+      })
+    })
+  }
+
+  displayAllCards = () => {
+    const allCards = this.state.cards.map((card, i) => {
+
+      return (
+        <Card
+          key = {i}
+          text = {card.text}
+        />
+        // console.log(card)
+      )
+    })
+    return allCards
+  }
+
+  // addNote = (note) => {
+
+  // }
+
   render() {
     return (
       <div>
-        Board
+        {this.displayAllCards()}
       </div>
     )
   }

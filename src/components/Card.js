@@ -7,23 +7,19 @@ import './Card.css';
 class Card extends Component {
   constructor(props){
     super(props)
-
-    this.state = {
-      quote: null,
-    }
   }
 
   render() {
     return (
       <div className="card">
-        Card
+        <p>{this.props.text}</p>
       </div>
     )
   }
 }
 
 Card.propTypes = {
-  quote: PropTypes.string.isRequired,
+  // quote: PropTypes.string.isRequired,
 };
 
 export default Card;
