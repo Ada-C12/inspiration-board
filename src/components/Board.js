@@ -8,7 +8,6 @@ import NewCardForm from './NewCardForm';
 // import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-
   constructor(props) {
     super(props);
 
