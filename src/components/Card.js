@@ -6,8 +6,6 @@ import './Card.css';
 
 class Card extends Component {
   onDeleteClick = () => {
-    console.log('deleting');
-
     const { id } = this.props.data;
     this.props.deleteCard(id);
   }

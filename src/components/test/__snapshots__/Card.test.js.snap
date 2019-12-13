@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Snapshot test for Card 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <div
+      class="card__content"
+    >
+      <span
+        class="card__content-text"
+      >
+        some text
+      </span>
+      <span
+        class="card__content-emoji"
+      >
+        🐶
+      </span>
+      <button
+        class="card__delete"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

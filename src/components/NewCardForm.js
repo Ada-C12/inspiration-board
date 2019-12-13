@@ -44,9 +44,6 @@ class NewCardForm extends Component {
   }
 
   render() {
-    // console.log('text', this.state.text);
-    // console.log('emoji', this.state.emoji);
-
     return (
       <form className="new-card-form" onSubmit={this.onFormSubmit}>
         <h3 className="new-card-form__header">Add a Card</h3>
@@ -74,7 +71,7 @@ class NewCardForm extends Component {
           <input 
             type="submit"
             name="submit"
-            value="Add a Card"
+            value="Add Card"
             className="new-card-form__form-button"
           />
         </div>
