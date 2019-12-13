@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor(props) {
@@ -33,10 +33,10 @@ class Board extends Component {
     const url = `https://inspiration-board.herokuapp.com/cards/${ cardId }`
     axios.delete(url)
       .then((response) => {
-        const cardList = this.state.cardList.filter((card) => card.id !== cardId);
+        const cards = this.state.cards.filter((item) => item.card.id !== cardId);
 
         this.setState({
-          cardList,
+          cards,
         });
       })
       .catch((error) => {
@@ -56,12 +56,15 @@ class Board extends Component {
     return (
       <div className="board">
         {cardCollection}
+        {/* <NewCardForm /> */}
       </div>
     )
   }
 }
 
 Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 
 };
 
