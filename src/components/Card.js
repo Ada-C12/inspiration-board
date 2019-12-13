@@ -7,7 +7,7 @@ import './Card.css';
 class Card extends Component {
   render() {
     return (
-      <div className="card">
+      <div className="card" >
         <span className="card__content">
           <span className="card__content-text">{this.props.text}</span>
           <span className="card__content-emoji">{emoji.getUnicode(this.props.emoji)}</span> 

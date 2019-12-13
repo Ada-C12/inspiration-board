@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-// import CARD_DATA from '../data/card-data.json';
+
 
 class Board extends Component {
   constructor() {
@@ -17,7 +17,20 @@ class Board extends Component {
     };
   }
 
- 
+  addCard = (card) => {
+    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
+      .then((response) => {
+        const updatedData = this.state.cards;
+        updatedData.push(response.data.card);
+        this.setState({
+          cards: updatedData,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
 
   componentDidMount() {
   axios.get(`${this.props.url}/${this.props.boardName}/cards`)
@@ -28,7 +41,7 @@ class Board extends Component {
     })
 
     updatedState = [...updatedState, ...cardsFromApi]
- 
+
     this.setState({ 
       cards: updatedState,
       error: '' 
@@ -42,25 +55,25 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
-        {this.state.cards.map((name, i) => {
+        <NewCardForm addCardCallback={this.addCard}/>
+
+        {this.state.cards.map((card, i) => {
           return(
             <Card 
-              text={(name.text) ? name.text : ""}
-              emoji={(name.emoji) ? name.emoji : ""}
+              text={(card.text) ? card.text : ""}
+              emoji={(card.emoji) ? card.emoji : ""}
               key={i}
             />
           );
         })
         }
-      <NewCardForm />
       </div>
     );
   }
-
 }
 
 Board.propTypes = {
-
+  
 };
 
 export default Board;
