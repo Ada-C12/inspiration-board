@@ -17,9 +17,20 @@ class Board extends Component {
   }
 
   render() {
+    const cardCollections = CARD_DATA.cards.map((card, i) => {
+      return (
+        <Card
+          key={i}
+          text={card.text}
+          emoji={card.emoji}
+        />
+      )
+    })
     return (
       <div>
-        Board
+        <h1>Board</h1>
+        {/* <NewCardForm /> */}
+        {cardCollections}
       </div>
     )
   }

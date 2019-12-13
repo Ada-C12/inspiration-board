@@ -9,6 +9,8 @@ class Card extends Component {
     return (
       <div className="card">
         Card
+        {this.props.text}
+        {this.props.emoji? emoji.getUnicode(this.props.emoji) : null}
       </div>
     )
   }
