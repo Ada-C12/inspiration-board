@@ -13,6 +13,7 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: null,
     };
   }
 
@@ -27,7 +28,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string,
 };
 
 export default Board;
