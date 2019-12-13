@@ -24,6 +24,18 @@ class Board extends Component {
         console.log('error fetching cards', error))
   }
 
+  onAddCard = (card) => {
+    const { url, boardName } = this.props
+    
+    axios.post(`${url}boards/${boardName}/cards`, card).then(response =>
+      this.setState(state => {
+        const cards = state.cards
+        cards.unshift(response.data)
+        return { cards }
+      })
+    ).catch(error => console.log('error adding card', error))
+  }
+
   onDeleteCard = (id) => {
     axios.delete(`${this.props.url}cards/${id}`).then(() =>
       this.setState(state => {
@@ -41,9 +53,14 @@ class Board extends Component {
     };
     
     return (
-      <div>
-        {this.state.cards.map(encard)}
-      </div>
+      <React.Fragment>
+        <div className='new-card-form'>
+          <NewCardForm onSubmit={this.onAddCard}/>
+        </div>
+        <div className='board'>
+          {this.state.cards.map(encard)}
+        </div>
+      </React.Fragment>
     )
   }
 
