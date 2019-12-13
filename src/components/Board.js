@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 // import axios from 'axios';
 
 import './Board.css';
-// import Card from './Card';
+import Card from './Card';
 // import NewCardForm from './NewCardForm';
-// import CARD_DATA from '../data/card-data.json';
+import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor() {
@@ -16,10 +16,19 @@ class Board extends Component {
     };
   }
 
+  makeCardCollection = (cardData) => {
+    return cardData.map((card, i) => {
+      return <Card 
+        data={ card } 
+        key={ i }
+      />
+    });
+  }
+
   render() {
     return (
-      <div>
-        Board
+      <div className="board">
+        {this.makeCardCollection(CARD_DATA.cards)}
       </div>
     )
   }
