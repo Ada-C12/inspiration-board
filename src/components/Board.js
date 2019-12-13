@@ -17,22 +17,20 @@ class Board extends Component {
     };
   }
 
-
-  // componentDidMount() {
-  //   axios.get('https://inspiration-board.herokuapp.com/boards/hallie')
-  //     .then((response) => {
-  //       this.setState({ cards: response.data });
-  //     })
-  //     .catch((error) => {
-  //       this.setState({ error: error.message });
-  //     });
-  // }
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/hallie/cards')
+      .then((response) => {
+        this.setState({ cards: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
 
   addCard = (card) => {
-    axios.post("https://inspiration-board.herokuapp.com/boards/hallie", card)
+    axios.post("https://inspiration-board.herokuapp.com/boards/hallie/cards", card)
       .then((response) => {
         console.log(response.data);
-        // We can update the state so we don't need to make another GET request
         const { cards } = this.state;
         cards.push(response.data);
         this.setState({
@@ -41,18 +39,29 @@ class Board extends Component {
         });
       })
       .catch((error) => {
-        // Use the same idea we had in our GET request
         this.setState({ 
           error: error.message,
          });
       });
   }
 
+
   render() {
+
+    const getCards = this.state.cards.map((card) => {
+        return (
+          <div>
+        <Card 
+          key={card.card.id}
+          text={card.card.text}
+        /></div>
+        )
+      });
+  
     return (
       <section>
       <div>
-        <Card />
+        {getCards}
       </div>
       <div>
         <NewCardForm addCardCallback={this.addCard} />
