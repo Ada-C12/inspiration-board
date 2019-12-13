@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor() {
@@ -13,22 +13,47 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
+
+ 
+
+  componentDidMount() {
+  axios.get(`${this.props.url}/${this.props.boardName}/cards`)
+  .then((response) => {
+    let updatedState = this.state.cards;
+    let cardsFromApi = response.data.map((cardData) => {
+      return cardData.card;   
+    })
+
+    updatedState = [...updatedState, ...cardsFromApi]
+ 
+    this.setState({ 
+      cards: updatedState,
+      error: '' 
+    });
+  })
+  .catch((error) => {
+    this.setState({ error: error.message });
+  });
+}
 
   render() {
     return (
       <div>
-        {CARD_DATA.cards.map((card, i) => {
+        {this.state.cards.map((name, i) => {
           return(
             <Card 
-              text={card.text}
-              emoji={(card.emoji) ? (card.emoji) : (card.Emoji)}
+              text={(name.text) ? name.text : ""}
+              emoji={(name.emoji) ? name.emoji : ""}
               key={i}
             />
+            
           );
         })
         }
+        {console.log(this.state)}
       </div>
     );
   }
