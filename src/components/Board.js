@@ -8,6 +8,7 @@ import NewCardForm from './NewCardForm';
 // import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
+
   constructor(props) {
     super(props);
 
@@ -18,9 +19,12 @@ class Board extends Component {
   }
 
   componentDidMount () {
-    axios.get(`${this.props.url}boards/${this.props.boardName}/cards`)
+    axios.get(`${ this.props.url }boards/${ this.props.boardName }/cards`)
       .then((response) => {   
-        this.setState({ cards: response.data });
+        this.setState({ 
+          cards: response.data.reverse(),
+          errors: '',
+        });
       })
       .catch((error) => {
         this.setState({ errors: error.message });
@@ -28,14 +32,15 @@ class Board extends Component {
   }
 
   deleteCard = (id) => {
-    console.log(`delete ${id}`);
+    console.log(`delete ${ id }`);
     
-    axios.delete(`${this.props.url}cards/${id}`)
+    axios.delete(`${ this.props.url }cards/${ id }`)
       .then((response) => {
         const cards = this.state.cards.filter((element) => element.card.id !== response.data.card.id);
 
         this.setState({
           cards,
+          errors: '',
         });
       })
       .catch((error) => {
@@ -46,12 +51,15 @@ class Board extends Component {
   addCard = (formData) => {
     console.log("add", formData);
 
-    axios.post(`${this.props.url}boards/${this.props.boardName}/cards`, formData)
+    axios.post(`${ this.props.url }boards/${ this.props.boardName }/cards`, formData)
       .then((response) => {
         const updatedData = this.state.cards;
         updatedData.push(response.data);
 
-        this.setState({ cards: updatedData });
+        this.setState({ 
+          cards: updatedData,
+          errors: '', 
+        });
       })
       .catch((error) => {
         this.setState({ error: error.message });

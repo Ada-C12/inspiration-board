@@ -28,7 +28,7 @@ class NewCardForm extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (this.state.text) {
+    if (this.state.text || this.state.emoji) {
       this.props.addCardCallback(this.state);
 
       this.setState({

@@ -4,27 +4,27 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-class Card extends Component {
+const Card = (props) => {
+
+  const { id, text, deleteCardCallback } = props;
   
-  render() {
-    return (
-      <div className="card">
-        <div className="card__content">
-          <p className="card__content-text">{ this.props.text }</p>
-          { this.props.emoji !== null ? 
-          <p className="card__content-emoji">{ emoji.getUnicode(this.props.emoji) }</p>
-          :
-          '' }
-        </div>
-        <button
-          type="button"
-          className="card__delete"
-          aria-label="Delete"
-          onClick={() => { this.props.deleteCardCallback(this.props.id) }}
-        >Delete</button>
+  return (
+    <div className="card">
+      <div className="card__content">
+        <p className="card__content-text">{ text }</p>
+        { props.emoji !== null ? 
+        <p className="card__content-emoji">{ emoji.getUnicode(props.emoji) }</p>
+        :
+        '' }
       </div>
-    )
-  }
+      <button
+        type="button"
+        className="card__delete"
+        aria-label="Delete"
+        onClick={() => { deleteCardCallback(id) }}
+      >Take</button>
+    </div>
+  )
 };
 
 Card.propTypes = {
