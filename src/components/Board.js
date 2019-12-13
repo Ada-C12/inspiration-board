@@ -18,7 +18,7 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
+      <div className="board">
 
 
 
@@ -26,7 +26,10 @@ class Board extends Component {
         <Card text="Hello" emoji="cat" />
         <Card text="Hello" emoji="cat" />
         <Card text="Hello" emoji="cat" />
-
+        <Card text="Hello" emoji="cat" />
+        <Card text="Hello" emoji="cat" />
+        <Card text="Hello" emoji="cat" />
+        <Card text="Hello" emoji="cat" />
 
 
 
