@@ -30,7 +30,6 @@ class Board extends Component {
           />;
         });
         
-        // console.log(cards.findIndex((card) => {return card.key === "2532"}));
         this.setState({ cards: cards });
       })
       .catch((error) => {
@@ -54,6 +53,30 @@ class Board extends Component {
       });
   }
 
+  addCard = (formData) => {
+    console.log("add", formData);
+
+    axios.post(`${this.props.url}boards/${this.props.boardName}/cards`, formData)
+      .then((response) => {
+        const updatedData = this.state.cards;
+        
+        const newCard = <Card 
+          key={ response.data.card.id } 
+          id={ response.data.card.id } 
+          text={ response.data.card.text } 
+          emoji={ response.data.card.emoji } 
+          deleteCardCallback={ this.deleteCard }
+        />;
+
+        updatedData.push(newCard);
+
+        this.setState({ cards: updatedData });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
+
   render() {
     return (
       // TIFF You still need to figure out what to do with this
@@ -62,6 +85,8 @@ class Board extends Component {
         <div className="validation-errors-display validation-errors-display__list">{ this.state.errors }</div>
         : 
         <div className="board">{ this.state.cards }</div> }
+
+        <NewCardForm addCardCallback={ this.addCard } />
       </div>
     )
   }
