@@ -8,14 +8,19 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        Card
+        <div className="card__content">
+          <p className="card__content-text">{this.props.text}</p>
+          <p className="card__content-emoji">{this.props.emoji ? emoji.getUnicode(this.props.emoji) : ""}</p>
+          <button type="button" className="card__delete">Delete</button>
+        </div>
       </div>
     )
   }
 }
 
 Card.propTypes = {
-
+  text: PropTypes.string,
+  emoji: PropTypes.string,
 };
 
 export default Card;
