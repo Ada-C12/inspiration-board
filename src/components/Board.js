@@ -34,21 +34,52 @@ class Board extends Component {
       }));
   }
 
-  deleteCard = (cardId) => {
-    axios.delete(`${this.props.url}/${this.props.boardName}/${cardId}`)
+  addCard = (card) => {
+    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
       .then((response) => {
-        const cardList = this.state.cards.filter((card) => card.id !== cardId);
+        const newCardList = this.state.cards
+        newCardList.push(card)
 
         this.setState({
-          cardList,
-        });
+          cards: newCardList
+        })
       })
       .catch((error) => {
-        this.setState({ error: error.message });
-      });
+        this.setState({ error: error.message })
+      })
+  }
+
+  deleteCard = (cardId) => {
+    const currentCards = this.state.cards;
+
+    this.setState({
+      cards: currentCards.filter((card) => card.id !== cardId),
+    });
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+      .then((response) => {
+        if (response.status === 'error') {
+          this.setState({
+            cards: currentCards,
+          });
+        }
+      })
+
+    // axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+    //   .then((response) => {
+    //     // console.log(`${cardId} THIS IS THE ID!!!!!!`)
+    //     const cardList = this.state.cards.filter((cardInfo) => cardInfo.card.id !== cardId);
+
+    //     this.setState({
+    //       cardList,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ error: error.message });
+    //   });
   };
 
   render() {
+    // <NewCardForm addCardCallback={this.addCard} />
     const cards = this.state.cards.map((card, i) => {
       return (
         <Card 
@@ -56,9 +87,9 @@ class Board extends Component {
           id={card.id}
           text={card.text}
           emoji={card.emoji}
-          deleteCallback={this.deleteCard} />
-      )
-    })
+          deleteCard={this.deleteCard} />
+      );
+    });
     return (
       <section>
         <div className=".validation-errors-display__list">
@@ -67,6 +98,7 @@ class Board extends Component {
 
         <div className="board">
           { cards }
+          <NewCardForm addCardCallback={this.addCard} />
         </div>
       </section>
     )
