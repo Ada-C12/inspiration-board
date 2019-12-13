@@ -42,10 +42,11 @@ class Board extends Component {
   }
 
   makeCardCollection = (cardData) => {
-    return cardData.map((card, i) => {
+    return cardData.map((cardWrapper, i) => {
       return <Card 
-        data={ card.card } 
+        data={ cardWrapper.card } 
         key={ i }
+        deleteCard={this.deleteCard}
       />
     });
   }
@@ -67,6 +68,39 @@ class Board extends Component {
         this.setState({
           cards,
           success: 'Successfully added new card',
+          error: undefined,
+        })
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        this.setState({
+          error: errorMessage,
+          success: undefined,
+        })
+      })
+  }
+
+  deleteCard = (cardId) => {
+    console.log(cardId);
+
+    const { url } = this.props;
+    const allCards = `${url}cards/${cardId}`;
+
+    axios.delete(allCards)
+      .then((response) => {
+        const responseData = response.data;
+        console.log(responseData);
+
+        const { cards } = this.state;
+        const filteredCards = cards.filter((cardWrapper) => {
+          return cardWrapper.card.id !== responseData.card.id;
+        });
+        console.log(filteredCards);
+
+        this.setState({
+          cards: filteredCards,
+          success: `Card ${cardId} was deleted successfully`,
           error: undefined,
         })
       })

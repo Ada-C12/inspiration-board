@@ -5,6 +5,13 @@ import emojiDict from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+  onDeleteClick = () => {
+    console.log('deleting');
+
+    const { id } = this.props.data;
+    this.props.deleteCard(id);
+  }
+
   render() {
     const {text, emoji} = this.props.data;
 
@@ -17,6 +24,9 @@ class Card extends Component {
           <span className="card__content-emoji">
             { emoji ? emojiDict.getUnicode(emoji) : '' }
           </span>
+          <button className="card__delete" onClick={this.onDeleteClick}>
+            Delete
+          </button>
         </div>
       </div>
     )
@@ -25,6 +35,7 @@ class Card extends Component {
 
 Card.propTypes = {
   data: PropTypes.object.isRequired,
+  deleteCard: PropTypes.func.isRequired,
 };
 
 export default Card;
