@@ -5,10 +5,18 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+
+  printableCards = this.props.cardData.map((card, i) => {
+     return <div key={i}>
+       {card.text || card.emoji || card.Emoji}
+     </div>
+    });
+    // {emoji.getUnicode("heart_eyes")}
+
   render() {
     return (
       <div className="card">
-        Card
+        {this.printableCards}
       </div>
     )
   }
