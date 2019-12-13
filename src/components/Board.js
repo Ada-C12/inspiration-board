@@ -19,9 +19,9 @@ class Board extends Component {
   componentDidMount(){
     axios.get(this.props.url)
     .then((response) => {
-      const cards = response.data.map((cardKey, values) => {
+      const cards = response.data.map((entry) => {
         return (
-          Object.values(cardKey) 
+          entry.card 
         )
       })
       this.setState({
