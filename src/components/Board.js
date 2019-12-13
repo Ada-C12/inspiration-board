@@ -42,6 +42,21 @@ class Board extends Component {
       });
   };
 
+  addCard = (card) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`, card)
+      .then((response) => {
+        const updatedCards = this.state.cards;
+        updatedCards.push(response.data);
+        this.setState({
+          cards: updatedCards,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
+
   cardItems = () => {
     return this.state.cards.map((card, i) => {
       return (
