@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import emojiDict from 'emoji-dictionary';
 import './NewCardForm.css';
 
@@ -18,7 +18,11 @@ class NewCardForm extends Component {
   onFormSubmit = (event) => {
     event.preventDefault();
 
-    console.log('form submit');
+    let newCard = {};
+    newCard.text = this.state.text;
+    newCard.emoji = this.state.emoji;
+
+    this.props.addCard(newCard);
   }
 
   onInputChange = (event) => {
@@ -40,8 +44,8 @@ class NewCardForm extends Component {
   }
 
   render() {
-    console.log('text', this.state.text);
-    console.log('emoji', this.state.emoji);
+    // console.log('text', this.state.text);
+    // console.log('emoji', this.state.emoji);
 
     return (
       <form className="new-card-form" onSubmit={this.onFormSubmit}>
@@ -77,6 +81,10 @@ class NewCardForm extends Component {
       </form>
     )
   }
+}
+
+NewCardForm.propTypes = {
+  addCard: PropTypes.func.isRequired,
 }
 
 export default NewCardForm;

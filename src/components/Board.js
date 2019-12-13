@@ -14,6 +14,7 @@ class Board extends Component {
     this.state = {
       cards: [],
       error: undefined,
+      success: undefined,
     };
   }
 
@@ -27,6 +28,7 @@ class Board extends Component {
         console.log('successfully retrieved:', responseData);
         this.setState({
           cards: responseData,
+          error: undefined,
         })
       })
       .catch((error) => {
@@ -34,6 +36,7 @@ class Board extends Component {
         console.log('error:', errorMessage);
         this.setState({
           error: errorMessage,
+          success: undefined,
         })
       });
   }
@@ -47,13 +50,55 @@ class Board extends Component {
     });
   }
 
+  addCard = (card) => {
+    console.log('attempting to add card', card);
+
+    const { url, boardName } = this.props;
+    const allCards = `${url}${boardName}/cards`;
+
+    axios.post(allCards, card)
+      .then((response) => {
+        const responseData = response.data;
+        console.log('successfully added: ', responseData);
+
+        const { cards } = this.state;
+        cards.push(responseData);
+
+        this.setState({
+          cards,
+          success: 'Successfully added new card',
+          error: undefined,
+        })
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        this.setState({
+          error: errorMessage,
+          success: undefined,
+        })
+      })
+  }
+
   render() {
     return (
       <section>
+        <section className="flash-wrapper">
+          <div className="error-message-wrapper">
+            { this.state.error
+              ? <div className="error-message">{this.state.error}</div>
+              : ''}
+          </div>
+          <div className="success-message-wrapper">
+            { this.state.success
+              ? <div className="success-message">{this.state.success}</div>
+              : ''}
+          </div>
+        </section>
         <div className="board">
           {this.makeCardCollection(this.state.cards)}
         </div>
-        <NewCardForm />
+        <NewCardForm addCard={this.addCard} />
       </section>
     )
   }
