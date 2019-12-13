@@ -13,31 +13,51 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
 
-  // addCard = (card) => {
-  //   console.log('card = ', card);
-  //   axios.post({url}, card)
+
+  // componentDidMount() {
+  //   axios.get('https://inspiration-board.herokuapp.com/boards/hallie')
   //     .then((response) => {
-  //       // We can update the state so we don't need to make another GET request
-  //       const updatedCards = this.state.cards;
-  //       updatedCards.push(response.data);
-  //       this.setState({
-  //         cards: updatedCards,
-  //       });
+  //       this.setState({ cards: response.data });
   //     })
   //     .catch((error) => {
-  //       // Use the same idea we had in our GET request
   //       this.setState({ error: error.message });
   //     });
-  // };
+  // }
+
+  addCard = (card) => {
+    axios.post("https://inspiration-board.herokuapp.com/boards/hallie", card)
+      .then((response) => {
+        console.log(response.data);
+        // We can update the state so we don't need to make another GET request
+        const { cards } = this.state;
+        cards.push(response.data);
+        this.setState({
+          cards,
+          error: undefined,
+        });
+      })
+      .catch((error) => {
+        // Use the same idea we had in our GET request
+        this.setState({ 
+          error: error.message,
+         });
+      });
+  }
 
   render() {
     return (
+      <section>
       <div>
         <Card />
       </div>
+      <div>
+        <NewCardForm addCardCallback={this.addCard} />
+      </div>
+      </section> 
     )
   }
 
