@@ -42,13 +42,15 @@ class NewCardForm extends Component {
         <form className="new-card-form__form"
           onSubmit={this.onSubmit}>
           <label className='new-card-form__form-label'
-            htmlFor='text'/>
+            htmlFor='text'>text:</label>
           <input className='new-card-form__form-textarea'
             type='textarea'
             name='text'
             value={this.state.text}
             onChange={this.onChange}
           />
+          <label className='new-card-form__form-label'
+            htmlFor='emoji'>emoji:</label>
           <select className='new-card-form__form-select'
             name='emoji' onChange={this.onChange}>
             {EMOJI_LIST.map((emoji, i) => this.emojiOption(emoji, i))}
@@ -61,6 +63,10 @@ class NewCardForm extends Component {
       </div>
     );
   }
+}
+
+NewCardForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default NewCardForm;
