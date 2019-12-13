@@ -5,10 +5,14 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+
   render() {
+
     return (
       <div className="card">
-        Card
+        {/* Card */}
+        {this.props.text}
+        {emoji.getUnicode(this.props.emoji)}
       </div>
     )
   }
