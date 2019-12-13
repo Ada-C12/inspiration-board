@@ -13,31 +13,39 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: undefined,
     };
+  }
+  
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/dianna/cards')
+      .then((response) => {
+
+        console.log(response.data)
+
+
+        this.setState({ cards: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
   }
 
   render() {
+    const cards = this.state.cards
+
+    const cardCollection = cards.map((item, i) => {
+      return (
+        <Card key={i} text={item.card.text} emoji={item.card.emoji} />
+      );
+    });
+
     return (
       <div className="board">
-
-
-
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-        <Card text="Hello" emoji="cat" />
-
-
-
-
+        {cardCollection}
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
