@@ -77,7 +77,6 @@ class Board extends Component {
     });
 
     return (
-      // TIFF You still need to figure out what to do with this
       <div>
         { this.state.errors !== '' ? 
         <div className="validation-errors-display validation-errors-display__list">{ this.state.errors }</div>
