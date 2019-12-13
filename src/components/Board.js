@@ -16,6 +16,22 @@ class Board extends Component {
     };
   }
 
+  addCard = card => {
+    axios
+      .post(this.props.url + this.props.boardName, card)
+      .then(response => {
+        const updatedData = this.state.cards;
+        updatedData.push(response.data);
+        this.setState({
+          cards: updatedData,
+          error: ""
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
+  };
+
   componentDidMount() {
     axios
       .get(this.props.url + this.props.boardName)
@@ -33,12 +49,16 @@ class Board extends Component {
   }
 
   render() {
-    console.log(this.state.cards);
     const allCards = this.state.cards.map((data, i) => {
       return <Card key={i} {...data.card} />;
     });
 
-    return <div>{allCards}</div>;
+    return (
+      <div>
+        <NewCardForm addCardCallback={this.addCard} />
+        {allCards}
+      </div>
+    );
   }
 }
 
