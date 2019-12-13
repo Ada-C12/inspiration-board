@@ -7,14 +7,11 @@ import "./Card.css";
 class Card extends Component {
   render() {
     return (
-      <div className="card">
-        {this.props.emoji && (
-          <>
-            <p>{emoji.getUnicode(this.props.emoji)}</p>
-            <p>{this.props.text}</p>
-          </>
-        )}
-        <p>{this.props.text}</p>
+      <div className="card card__content">
+        <p className="card__content-emoji">
+          {this.props.emoji ? emoji.getUnicode(this.props.emoji) : ""}
+        </p>
+        <p className="card__content-text">{this.props.text}</p>
       </div>
     );
   }
