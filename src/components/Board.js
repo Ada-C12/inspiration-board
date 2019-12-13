@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import './Board.css';
@@ -32,18 +32,28 @@ class Board extends Component {
       });
   }
 
+  deleteCard = (id) => {
+    axios.delete(`${this.props.url}/cards/${id}`)
+      .then((response) => {
+        console.log(`deleted ${id}`);
+        //find card deleted and remove from state 
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
+
   componentDidMount() {
-  axios.get(`${this.props.url}/${this.props.boardName}/cards`)
+    console.log('hi');
+  axios.get(`${this.props.url}/boards/${this.props.boardName}/cards`)
   .then((response) => {
-    let updatedState = this.state.cards;
+    
     let cardsFromApi = response.data.map((cardData) => {
       return cardData.card;   
     })
 
-    updatedState = [...updatedState, ...cardsFromApi]
-
     this.setState({ 
-      cards: updatedState,
+      cards: cardsFromApi,
       error: '' 
     });
   })
@@ -57,12 +67,13 @@ class Board extends Component {
       <div className="board">
         <NewCardForm addCardCallback={this.addCard}/>
 
-        {this.state.cards.map((card, i) => {
+        {this.state.cards.map((card) => {
           return(
             <Card 
               text={(card.text) ? card.text : ""}
               emoji={(card.emoji) ? card.emoji : ""}
-              key={i}
+              id={card.id}
+              deleteCardCallback={this.deleteCard}
             />
           );
         })
@@ -72,8 +83,8 @@ class Board extends Component {
   }
 }
 
-Board.propTypes = {
+// Board.propTypes = {
   
-};
+// };
 
 export default Board;

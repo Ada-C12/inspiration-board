@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
-import Axios from 'axios';
-
 
 
 class NewCardForm extends Component {
@@ -27,7 +25,7 @@ class NewCardForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(`here's the thing you are sending: ${this.state.text} ${this.state.emoji}`)
+  
     if (this.state.text && this.state.emoji ) {
       this.props.addCardCallback({"text": this.state.text, "emoji": this.state.emoji});
 
