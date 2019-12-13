@@ -6,9 +6,15 @@ import './Card.css';
 
 class Card extends Component {
   render() {
+    const emojiImage = this.props.emoji ? emoji.getUnicode(this.props.emoji) : null
+
     return (
       <div className="card">
-        Card
+        <ul className="card__content">
+          <li>{this.props.id}</li>
+          <li className="card__content-text">{this.props.text}</li>
+          {emojiImage}
+        </ul>
       </div>
     )
   }
