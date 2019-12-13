@@ -1,6 +1,7 @@
 .board {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .validation-errors-display {
@@ -11,4 +12,28 @@
 .validation-errors-display__list {
   list-style-type: none;
   padding: 0;
+}
+
+.error-message {
+  margin: 1rem 0;
+  padding: 1rem;
+
+  background-color: tomato;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-message {
+  margin: 1rem 0;
+  padding: 1rem;
+
+  background-color: lightgreen;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
