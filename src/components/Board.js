@@ -19,18 +19,8 @@ class Board extends Component {
 
   componentDidMount () {
     axios.get(`${this.props.url}boards/${this.props.boardName}/cards`)
-      .then((response) => {
-        const cards = response.data.map((card) => {
-          return <Card 
-            key={ card.card.id } 
-            id={ card.card.id } 
-            text={ card.card.text } 
-            emoji={ card.card.emoji } 
-            deleteCardCallback={ this.deleteCard }
-          />;
-        });
-        
-        this.setState({ cards: cards });
+      .then((response) => {   
+        this.setState({ cards: response.data });
       })
       .catch((error) => {
         this.setState({ errors: error.message });
@@ -42,7 +32,7 @@ class Board extends Component {
     
     axios.delete(`${this.props.url}cards/${id}`)
       .then((response) => {
-        const cards = this.state.cards.filter((card) => card.key !== `${id}`);
+        const cards = this.state.cards.filter((element) => element.card.id !== response.data.card.id);
 
         this.setState({
           cards,
@@ -59,16 +49,7 @@ class Board extends Component {
     axios.post(`${this.props.url}boards/${this.props.boardName}/cards`, formData)
       .then((response) => {
         const updatedData = this.state.cards;
-        
-        const newCard = <Card 
-          key={ response.data.card.id } 
-          id={ response.data.card.id } 
-          text={ response.data.card.text } 
-          emoji={ response.data.card.emoji } 
-          deleteCardCallback={ this.deleteCard }
-        />;
-
-        updatedData.push(newCard);
+        updatedData.push(response.data);
 
         this.setState({ cards: updatedData });
       })
@@ -78,23 +59,33 @@ class Board extends Component {
   }
 
   render() {
+    const mappedCards = this.state.cards.map((card) => {
+      return <Card 
+        key={ card.card.id } 
+        id={ card.card.id } 
+        text={ card.card.text } 
+        emoji={ card.card.emoji } 
+        deleteCardCallback={ this.deleteCard }
+      />;
+    });
+
     return (
       // TIFF You still need to figure out what to do with this
       <div>
         { this.state.errors !== '' ? 
         <div className="validation-errors-display validation-errors-display__list">{ this.state.errors }</div>
         : 
-        <div className="board">{ this.state.cards }</div> }
+        <div className="board">{ mappedCards }</div> }
 
         <NewCardForm addCardCallback={ this.addCard } />
       </div>
     )
   }
-
-}
+};
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
