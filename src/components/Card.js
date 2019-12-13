@@ -4,18 +4,22 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-class Card extends Component {
-  render() {
-    return (
-      <div className="card">
-        Card
+const Card = (card) => {
+  return (
+    <div className="card">
+      <div className="card__content">
+        <p className="card__content-text">{card.text}</p>
+        <p className="card__content-text">
+          {card.emoji && emoji.getUnicode(card.emoji)}
+        </p>
       </div>
-    )
-  }
-}
+    </div>
+  )
+};
 
 Card.propTypes = {
-
+  emoji: PropTypes.string,
+  text: PropTypes.string,
 };
 
 export default Card;
