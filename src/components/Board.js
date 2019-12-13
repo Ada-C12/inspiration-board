@@ -34,6 +34,20 @@ class Board extends Component {
       }));
   }
 
+  deleteCard = (cardId) => {
+    axios.delete(`${this.props.url}/${this.props.boardName}/${cardId}`)
+      .then((response) => {
+        const cardList = this.state.cards.filter((card) => card.id !== cardId);
+
+        this.setState({
+          cardList,
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
+
   render() {
     const cards = this.state.cards.map((card, i) => {
       return (
@@ -41,13 +55,20 @@ class Board extends Component {
           key={i}
           id={card.id}
           text={card.text}
-          emoji={card.emoji}/>
+          emoji={card.emoji}
+          deleteCallback={this.deleteCard} />
       )
     })
     return (
-      <div className="board">
-        { cards }
-      </div>
+      <section>
+        <div className=".validation-errors-display__list">
+          {this.state.errors}
+        </div>
+
+        <div className="board">
+          { cards }
+        </div>
+      </section>
     )
   }
 
