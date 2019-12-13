@@ -5,10 +5,18 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+
+    };
+  }
+
   render() {
     return (
       <div className="card">
-        Card
+        {this.props.text}
       </div>
     )
   }
