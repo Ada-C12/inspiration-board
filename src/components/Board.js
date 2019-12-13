@@ -49,11 +49,10 @@ class Board extends Component {
               emoji={(name.emoji) ? name.emoji : ""}
               key={i}
             />
-            
           );
         })
         }
-        {console.log(this.state)}
+      <NewCardForm />
       </div>
     );
   }
