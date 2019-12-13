@@ -8,8 +8,8 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cards: [],
@@ -18,18 +18,32 @@ class Board extends Component {
   }
   
   componentDidMount() {
-    axios.get('https://inspiration-board.herokuapp.com/boards/dianna/cards')
+    const url = `${this.props.url}${this.props.boardName}/cards`
+
+    axios.get(url)
       .then((response) => {
-
-        console.log(response.data)
-
-
         this.setState({ cards: response.data });
       })
       .catch((error) => {
         this.setState({ error: error.message });
       });
   }
+
+  // deletePet = (petId) => {
+  //   axios.delete(`http://localhost:3000/pets/${ petId }`)
+  //     .then((response) => {
+  //       const petList = this.state.petList.filter((pet) => pet.id !== petId);
+  
+  //       this.setState({
+  //         petList,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       this.setState({ error: error.message });
+  //     });
+  // };
+
+
 
   render() {
     const cards = this.state.cards
