@@ -20,11 +20,11 @@ class Board extends Component {
   componentDidMount() {
     axios.get(`${this.props.url}/${this.props.boardName}/cards`)
       .then((response) => {
-        const newCards = response.data.map((card) => {
+        const newCards = response.data.map((c) => {
           return {
-            text: card.card.text,
-            emoji: card.card.emoji,
-            id: card.card.id,
+            text: c.card.text,
+            emoji: c.card.emoji,
+            id: c.card.id,
           }
         })
         this.setState({ cards: newCards });
@@ -45,7 +45,7 @@ class Board extends Component {
       )
     })
     return (
-      <div>
+      <div className="board">
         { cards }
       </div>
     )
