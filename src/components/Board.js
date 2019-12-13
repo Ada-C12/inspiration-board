@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import './Board.css';
 import Card from './Card';
-// import NewCardForm from './NewCardForm';
+import NewCardForm from './NewCardForm';
 // import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
@@ -49,9 +49,12 @@ class Board extends Component {
 
   render() {
     return (
-      <div className="board">
-        {this.makeCardCollection(this.state.cards)}
-      </div>
+      <section>
+        <div className="board">
+          {this.makeCardCollection(this.state.cards)}
+        </div>
+        <NewCardForm />
+      </section>
     )
   }
 
