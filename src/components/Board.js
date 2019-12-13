@@ -17,17 +17,32 @@ class Board extends Component {
 
   componentDidMount = () => {
     const { url, boardName } = this.props
-    const cardsUrl = `${url}${boardName}/cards`
+    const cardsUrl = `${url}boards/${boardName}/cards`
     
     axios.get(cardsUrl).then(response =>
       this.setState({cards: response.data})).catch(error =>
-        console.log(error))
+        console.log('error fetching cards', error))
+  }
+
+  onDeleteCard = (id) => {
+    axios.delete(`${this.props.url}cards/${id}`).then(() =>
+      this.setState(state => {
+        const i = state.cards.findIndex(({ card }) => card.id === id)
+        const cards = [...state.cards]
+        cards.splice(i, 1)
+        return { cards }
+      })
+    ).catch(error => console.log('error deleting card', error))
   }
 
   render() {
+    const encard = ({ card }) => {
+      return <Card onDelete={this.onDeleteCard} key={card.id} {...card}/>
+    };
+    
     return (
       <div>
-        {this.state.cards.map(({card}) => <Card key={card.id} {...card}/>)}
+        {this.state.cards.map(encard)}
       </div>
     )
   }
