@@ -16,10 +16,27 @@ class Board extends Component {
     };
   }
 
+  // addCard = (card) => {
+  //   console.log('card = ', card);
+  //   axios.post({url}, card)
+  //     .then((response) => {
+  //       // We can update the state so we don't need to make another GET request
+  //       const updatedCards = this.state.cards;
+  //       updatedCards.push(response.data);
+  //       this.setState({
+  //         cards: updatedCards,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       // Use the same idea we had in our GET request
+  //       this.setState({ error: error.message });
+  //     });
+  // };
+
   render() {
     return (
       <div>
-        Board
+        <Card />
       </div>
     )
   }
@@ -27,7 +44,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  // url: propTypes.string,
+  // boardName: propTypes.string,
 };
 
 export default Board;

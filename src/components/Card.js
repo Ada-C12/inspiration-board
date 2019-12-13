@@ -5,10 +5,12 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+  
   render() {
     return (
       <div className="card">
-        Card
+        <p>Do more of what makes you happy.</p>
+        <p>{emoji.getUnicode("heart_eyes")}</p>
       </div>
     )
   }
