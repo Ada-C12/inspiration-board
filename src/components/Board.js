@@ -12,13 +12,30 @@ class Board extends Component {
     super();
 
     this.state = {
-      cards: CARD_DATA["cards"]
+      cards: []
     };
   }
 
+  componentDidMount() {
+    axios
+      .get(this.props.url + this.props.boardName)
+      .then(response => {
+        this.setState({
+          cards: response.data
+        });
+      })
+      .catch(error => {
+        // TODO
+        this.setState({
+          error: "there was an error"
+        });
+      });
+  }
+
   render() {
-    const allCards = this.state.cards.map((card, i) => {
-      return <Card key={i} {...card} />;
+    console.log(this.state.cards);
+    const allCards = this.state.cards.map((data, i) => {
+      return <Card key={i} {...data.card} />;
     });
 
     return <div>{allCards}</div>;
