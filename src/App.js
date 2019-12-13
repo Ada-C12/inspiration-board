@@ -12,7 +12,7 @@ class App extends Component {
           </h1>
         </header>
         <Board
-          url="https://inspiration-board.herokuapp.com/boards/"
+          url="https://inspiration-board.herokuapp.com/"
           boardName={`taro/cards`}
         />
       </section>
