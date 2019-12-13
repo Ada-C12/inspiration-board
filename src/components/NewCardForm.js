@@ -22,25 +22,43 @@ class NewCardForm extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
+    this.setState({ text: '', emoji: '' });
+  }
+
+  emojiOption = (emojiName, i) => {
+    return (
+      <option value={emojiName} key={i}>
+        {emoji.getUnicode(emojiName)}
+      </option>
+    );
   }
 
   render() {
     return(
-      <form className="new-card-form__form"
-        onSubmit={this.onSubmit}>
-        <label className='new-card-form__form-label'
-          htmlFor='text'/>
-        <input className='new-card-form__form-textarea'
-          type='textarea'
-          name='text'
-          value={this.state.text}
-          onChange={this.onChange}
-        />
-        <input type='submit'
-          className='new-card-form__form-button'
-          value='Add Card'
-        />
-      </form>
+      <div className='new-card-form'>
+        <header className='new-card-form__header'>
+          Add a New Card
+        </header>
+        <form className="new-card-form__form"
+          onSubmit={this.onSubmit}>
+          <label className='new-card-form__form-label'
+            htmlFor='text'/>
+          <input className='new-card-form__form-textarea'
+            type='textarea'
+            name='text'
+            value={this.state.text}
+            onChange={this.onChange}
+          />
+          <select className='new-card-form__form-select'
+            name='emoji' onChange={this.onChange}>
+            {EMOJI_LIST.map((emoji, i) => this.emojiOption(emoji, i))}
+          </select>
+          <input type='submit'
+            className='new-card-form__form-button'
+            value='Add Card'
+          />
+        </form>
+      </div>
     );
   }
 }

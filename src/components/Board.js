@@ -54,16 +54,13 @@ class Board extends Component {
     
     return (
       <React.Fragment>
-        <div className='new-card-form'>
-          <NewCardForm onSubmit={this.onAddCard}/>
-        </div>
+        <NewCardForm onSubmit={this.onAddCard}/>
         <div className='board'>
           {this.state.cards.map(encard)}
         </div>
       </React.Fragment>
     )
   }
-
 }
 
 Board.propTypes = {
