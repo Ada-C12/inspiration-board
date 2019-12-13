@@ -87,7 +87,7 @@ class NewCardForm extends Component {
           </select>
         </div>
         <input
-          className="btn btn-success new-card-form__form-button"
+          className="new-card-form__form-button"
           type="submit"
           name="submit"
           value="Add a Card"

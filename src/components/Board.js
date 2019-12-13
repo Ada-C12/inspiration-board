@@ -57,7 +57,6 @@ class Board extends Component {
         });
       })
       .catch(error => {
-        // TODO
         this.setState({
           error: "there was an error"
         });
@@ -80,6 +79,9 @@ class Board extends Component {
   }
 }
 
-Board.propTypes = {};
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
+};
 
 export default Board;

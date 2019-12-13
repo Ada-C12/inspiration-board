@@ -11,11 +11,12 @@ class Card extends Component {
         <p className="card__content-emoji">
           {this.props.emoji ? emoji.getUnicode(this.props.emoji) : ""}
         </p>
+
         <p className="card__content-text">{this.props.text}</p>
 
         <button
           type="button"
-          className="btn btn-danger card__delete"
+          className="card__delete"
           aria-label="delete"
           onClick={() => {
             this.props.deleteCardCallback(this.props.id);
@@ -29,7 +30,10 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-  deleteCardCallback: PropTypes.func
+  emoji: PropTypes.string,
+  text: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;
