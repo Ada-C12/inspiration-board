@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 import Board from './components/Board';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      cardsList: [],
+      error: undefined,
+    };    
+  }
+    componentDidMount () {
+      axios.get('https://inspiration-board.herokuapp.com/boards/muffin-poppy/cards')
+        .then((response) => {
+           this.setState({
+            cardsList: response.data,
+          });
+        })
+        .catch((error) => {
+        this.setState({error: error.message})});
+    }
+
   render() {
     return (
       <section>
@@ -11,7 +31,8 @@ class App extends Component {
         </header>
         <Board
           url="https://inspiration-board.herokuapp.com/boards/"
-          boardName={`Ada-Lovelace`}
+          boardName={`muffin-poppy`}
+          cardsList={this.state.cardsList}
           />
       </section>
     );
