@@ -13,25 +13,59 @@ class Board extends Component {
     this.url = props.url;
     this.boardName = props.boardName;
     this.state = {
-      cards: CARD_DATA.cards,
+      cards: [],
+      error: ''
     };
   }
   
+  componentDidMount() {
+    axios.get(this.url + this.boardName + '/cards')
+      .then(response => {
+        this.setState({
+          cards: response.data
+        })
+      })
+      .catch(error => {
+        this.setState({
+        error: error
+        })        
+    })
+  }
+  addCard = (newCard) => {
+    console.log(newCard);
+    const cards = this.state.cards;
+    cards.push({ text: newCard.text, emoji: newCard.emoji });
+    this.setState({
+      cards: cards
+    })
+    console.log(cards);
+    
+  }
   render() {
-    const cards =
-      this.state.cards.map((card, i) => {
+    
+    const cards = this.state.cards.map((card, i) => {
+      card = card.card;
         return (
           <Card key={i} {...card} ></Card>
         )
       })
-  
-    return (
-      <div className="board">
-        Board for {this.boardName}
-        {cards}
-        <Card className="card"></Card>
-      </div>
-    )
+
+    if (this.state.error) {
+      return (
+        <div className="header__text">
+          {this.state.error.message}
+        </div>
+      )
+    } else {
+      return (
+        <div className="board">
+          <div>
+            <NewCardForm addCard={this.addCard}></NewCardForm>
+          </div>
+          {cards}
+        </div>
+      )
+    }
   }
 
 }

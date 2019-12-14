@@ -9,12 +9,12 @@ class Card extends Component {
     super();
     this.state = {
       text: props.text,
-      emoji: props.emoji || props.Emoji ,
+      emoji: props.emoji,
     }
   }
   render() {
-    console.log(this);
-    const cardEmoji = this.state.emoji;    
+    const cardEmoji = this.state.emoji; 
+    
     return (
       <div className="card card__content">
         <div className="card__content-text">
@@ -29,7 +29,8 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-
+  text: PropTypes.string,
+  emoji: PropTypes.string
 };
 
 export default Card;
