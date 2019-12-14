@@ -20,38 +20,39 @@ class Board extends Component {
     axios.get(this.props.url)
     .then((response) => {
       const cards = response.data.map((entry) => {
-        return (
-          entry.card 
-        )
+        return (entry.card)
       })
-      this.setState({
-        cards: cards
-      })
+      this.setState({cards: cards})
     })
     .catch((error) => {
-      this.setState({
-        error: 'Something went wrong'
+      this.setState({ error: error.message });
+    })
+  }
+
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+    .then(() => {
+      const allCards = this.state.cards.filter((card) => {
+        return card.id !== cardId
       })
+      this.setState({cards: allCards})
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
     })
   }
 
   displayAllCards = () => {
     const allCards = this.state.cards.map((card, i) => {
-
       return (
         <Card
           key = {i}
           text = {card.text}
         />
-        // console.log(card)
       )
     })
     return allCards
   }
-
-  // addNote = (note) => {
-
-  // }
 
   render() {
     return (
