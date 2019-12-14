@@ -5,7 +5,7 @@ Congratulations! You're submitting your assignment!
 ## Comprehension Questions
 Question | Answer
 :------------- | :-------------
-What is the flow of data from input on the form to being a new card on the board? |
-What function did you use to make the GET request from the API to get the list of cards?  Why use that function? |
-How do snapshot tests differ from unit tests? |
-What purpose does Enzyme serve in testing a React app? |
+What is the flow of data from input on the form to being a new card on the board? | Form -> onSubmit (method in Form page) -> addCardCallback (from props) -> addCard (method in Board) -> Axios POST and update state -> render
+What function did you use to make the GET request from the API to get the list of cards?  Why use that function? | componentDidMount because the API call is asynchronous and so is setState, so by placing the API call within component did mount, we ensure the order of the calls.
+How do snapshot tests differ from unit tests? | Unit tests test for outputs given certain inputs. Snapshot tests test for changes to an existing saved snapshot. In the case of our tests, the snapshot of the DOM.
+What purpose does Enzyme serve in testing a React app? | We're not using Enzyme. Or if we are, I'm not aware of it.
