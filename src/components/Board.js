@@ -54,13 +54,14 @@ class Board extends Component {
         <Card 
           key={card.card.id}
           text={card.card.text}
+          emoji={card.card.emoji}
         /></div>
         )
       });
   
     return (
-      <section>
-      <div>
+      <section >
+      <div className="board">
         {getCards}
       </div>
       <div>

@@ -40,14 +40,16 @@ class NewCardForm extends Component {
 
   render () {
     return (
-      <form onSubmit={this.onSubmitHandler}>
-        <h3>Add a Card</h3>
+      <div className="new-card-form">
+        <h3 className="new-card-form__header">Add a Card</h3>
+      <form className="new-card-form__form " onSubmit={this.onSubmitHandler}>
+
         <div>
-          <label htmlFor="text">Message: </label>
+          <label className="new-card-form__form-label" htmlFor="text">Message: </label>
         </div>
 
         <div>
-          <textarea
+          <textarea className="new-card-form__form-textarea"
             name="text"
             id="text"
             onChange={this.onInputChange}
@@ -58,7 +60,7 @@ class NewCardForm extends Component {
         </div>
 
         <div>
-          <label htmlFor="emoji">Emoji: </label>
+          <label className="new-card-form__form-label" htmlFor="emoji">Emoji: </label>
           <input
             name="emoji"
             id="emoji"
@@ -66,14 +68,15 @@ class NewCardForm extends Component {
             value={this.state.emoji}
           />
         </div>
-        <input
-          className="btn btn-success"
+        <input 
+          className="new-card-form__form-button"
           type="submit"
           name="submit"
           value="Add a Card"
           onClick={this.onSubmitHandler}
         />
       </form>
+      </div>
     );
   }
 
