@@ -8,22 +8,32 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      cards: [],
-    };
+      cards: CARD_DATA["cards"],
+    }
+  }
+
+  makeCards () {
+    const boardCards = this.state.cards.map((card, i) => {
+      return <Card
+        text={card.text}
+        emjoi={card.emoji}
+        key={i} 
+      />;
+    });
+    return boardCards
   }
 
   render() {
     return (
       <div>
-        Board
+        { this.makeCards() }
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
