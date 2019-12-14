@@ -6,6 +6,10 @@ import './Card.css';
 
 class Card extends Component {
 
+  onDeleteCard = () => {
+    this.props.delete(this.props.key);
+  }
+
   render() {
     return (
       <div className="card">
@@ -13,6 +17,7 @@ class Card extends Component {
          { this.props.text } 
          {/* { emoji.getUnicode(this.props.emoji) } */}
         </span>
+        <button onClick={this.onDeleteCard}>Delete Card</button>
       </div>
     )
   }

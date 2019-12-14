@@ -23,6 +23,7 @@ class Board extends Component {
         text={card.text}
         emjoi={card.emoji}
         key={i} 
+        delete={this.deleteCard}
       />;
     });
     return boardCards
@@ -36,6 +37,40 @@ class Board extends Component {
       .catch((error) => {
         this.setState({ error: error.message });
       });
+  }
+
+  addCard = (card) => {
+    axios.post(`${this.props.url}boards/${this.props.boardName}/cards`, card)
+      .then((response) => {
+        const updatedData = this.state.cards;
+        updatedData.push(response.data);
+        this.setState({
+          cards: updatedData,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message
+        });
+      }); 
+  }
+
+  deleteCard = (target) => {
+    axios.post(`${this.props.url}/cards/${target}`)
+      .then((response) => {
+        const updatedData = this.state.cards;
+        updatedData.filter(card => card.key !== target);
+        this.setState({
+          cards: updatedData,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message
+        });
+      }); 
   }
 
   render() {
