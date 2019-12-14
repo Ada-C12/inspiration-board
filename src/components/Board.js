@@ -11,15 +11,30 @@ class Board extends Component {
   constructor() {
     super();
 
+    
     this.state = {
       cards: [],
+      hardcodedCards: CARD_DATA.cards
     };
+  }
+
+  makeCollection () {
+    const hardcodedCardsCollection = this.state.hardcodedCards.map((card, i) => {
+      return <Card
+        cardText={card.text}
+        cardEmoji={card.emoji}
+        key={i}
+      />;
+    }
+    );
+    return hardcodedCardsCollection
   }
 
   render() {
     return (
       <div>
         Board
+        {this.makeCollection()}
       </div>
     )
   }
