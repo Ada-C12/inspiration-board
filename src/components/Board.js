@@ -12,7 +12,8 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      cards: CARD_DATA["cards"],
+      cards: [],
+      error: '',
     }
   }
 
@@ -25,6 +26,16 @@ class Board extends Component {
       />;
     });
     return boardCards
+  }
+
+  componentDidMount() {
+    axios.get(`${this.props.url}boards/${this.props.boardName}/cards`)
+      .then((response) => {
+        this.setState({ cards: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
   }
 
   render() {
