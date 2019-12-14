@@ -13,6 +13,7 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
 
@@ -42,12 +43,25 @@ class Board extends Component {
     })
   }
 
+  addCard = (newCard) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`, newCard)
+    .then((response) => {
+      const updatedCards = this.state.cards
+      updatedCards.push(response.data.newCard)
+      this.setState({cards: updatedCards})
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+    })
+  }
+
   displayAllCards = () => {
     const allCards = this.state.cards.map((card, i) => {
       return (
         <Card
           key = {i}
           text = {card.text}
+          deleteCardCallback={this.deleteCard}
         />
       )
     })
@@ -57,6 +71,8 @@ class Board extends Component {
   render() {
     return (
       <div>
+        <p>{this.state.error}</p>
+        <NewCardForm addCardCallback={this.addCard}/>
         {this.displayAllCards()}
       </div>
     )

@@ -11,18 +11,8 @@ class NewCardForm extends Component {
     super(props);
 
     this.state = {
-      note: '',
+      text: '',
     }
-  }
-
-  onSubmitNote = (event) => {
-    event.preventDefault();
-
-    // this.props.addNoteCallback(note);
-
-    this.setState({
-      note: '',
-    });
   }
 
   onInputChange = (event) => {
@@ -35,25 +25,37 @@ class NewCardForm extends Component {
     this.setState(updatedState);
   }
 
+  onSubmitCard = (event) => {
+    event.preventDefault();
+    
+    const newCard = {text: this.state.text}
+
+    this.props.addCardCallback(newCard);
+
+    this.setState({
+      text: '',
+    });
+  }
+
   render() {
     return (
       <div className="NewCardForm">
         <h3>Submit Inspiration Note</h3>
 
-        <form className="NewCardForm__form" onSubmit={this.onSubmitNote}>
+        <form className="NewCardForm__form" onSubmit={this.onSubmitCard}>
 
           <div className="NewCardForm__note-input">
             <input
-              name="note"
+              name="text"
               placeholder="Inspirational note here"
               type="text" 
               onChange={this.onInputChange}
-              value={this.state.note}
+              value={this.state.text}
             />
           </div>
 
           <div className="NewCardForm__submit">
-            <input type="submit" value="Submit Line" className="NewCardForm__submit-btn" />
+            <input type="submit" value="Submit Note" className="NewCardForm__submit-btn" />
           </div>
         </form>
       </div>
