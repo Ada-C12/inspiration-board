@@ -40,13 +40,13 @@ class Board extends Component {
       })
       .catch((error) => {
         this.setState({ 
-          error: error.message,
+          error: error.cause,
          });
       });
   }
 
   deleteCard = (cardId) => {
-    axios.delete(`https://inspiration-board.herokuapp.com/boards/hallie/cards/${ cardId }`)
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${ cardId }`)
       .then((response) => {
         const cards = this.state.cards.filter((card) => card.card.id !== cardId);
   
