@@ -32,10 +32,6 @@ class Board extends Component {
   addCard = (card) => {
     const url = `${this.props.url}${this.props.boardName}/cards`
 
-
-    console.log(card)
-
-
     axios.post(url, card)
     .then((response) => {
       const updatedData = this.state.cards;
@@ -49,21 +45,6 @@ class Board extends Component {
       this.setState({ error: error.message });
     });
   };
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
 
   deleteCard = (cardId) => {
     const url = `${this.props.url}/cards/${ cardId }`

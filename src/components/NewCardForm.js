@@ -43,7 +43,7 @@ class NewCardForm extends Component {
   emojiList = () => {
     const emojis = EMOJI_LIST.map((emojiName, i) => {
       return (
-        <option key={i} name="emoji" value={emojiName} type="text" onChange={this.onFieldChange}>{emoji.getUnicode(emojiName)}</option>
+        <option key={i} value={emojiName}>{emoji.getUnicode(emojiName)}</option>
       );
     });
     return (
@@ -63,7 +63,7 @@ class NewCardForm extends Component {
             </div>
             <div>
               <div className="new-card-form__form-label">Emoji</div>
-              <select className="new-card-form__form-select">
+              <select name="emoji" value={this.state.emoji} onChange={this.onFieldChange} className="new-card-form__form-select">
                 {this.emojiList()}
               </select>
             </div>

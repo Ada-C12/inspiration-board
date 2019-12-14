@@ -14,7 +14,6 @@ class App extends Component {
           url="https://inspiration-board.herokuapp.com/"
           boardName={`boards/dianna`}
           />
-        
       </section>
     );
   }
