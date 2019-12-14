@@ -24,13 +24,11 @@ class Board extends Component {
 
       Object.keys(response.data).forEach((element) => {
         const { emoji, text, id } = response.data[element].card
-        const elementText = (text === null ? '' : text)
-        const elementEmoji = (emoji === null ? '' : emoji)
-
+        
         cardData.push({
           id: id,
-          text: elementText,
-          emoji: elementEmoji
+          text: (text === null ? '' : text),
+          emoji: (emoji === null ? '' : emoji),
         })
       })
 
@@ -44,6 +42,21 @@ class Board extends Component {
       this.setState({ error: error.message });
     });
   }
+
+  buildCards = () => {
+    const cardElements = this.state.cards.map((card) => {
+      return <Card 
+        key={card.id}
+        identifier={card.id}
+        text={card.text}
+        emoji={card.emoji}
+        onButtonClick={this.deleteCard}
+      />
+    });
+
+    return cardElements;
+  }
+
 
   addCard = (card) => {
     axios.post(`${this.props.url}/boards/${this.props.boardName}/cards`, card)
@@ -83,21 +96,6 @@ class Board extends Component {
       });
   }
 
-
-  buildCards = () => {
-    const cardElements = this.state.cards.map((card) => {
-      return <Card 
-        key={card.id}
-        identifier={card.id}
-        text={card.text}
-        emoji={card.emoji}
-        onButtonClick={this.deleteCard}
-      />
-    });
-
-    return cardElements;
-  }
-
   render() {
     return (
       <div>
@@ -109,7 +107,6 @@ class Board extends Component {
       </div>
     )
   }
- 
 }
 
 Board.propTypes = {
