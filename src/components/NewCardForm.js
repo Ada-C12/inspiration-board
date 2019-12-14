@@ -42,7 +42,7 @@ class NewCardForm extends Component {
     return (
       <div className="new-card-form">
         <h3 className="new-card-form__header">Add a Card</h3>
-      <form className="new-card-form__form " onSubmit={this.onSubmitHandler}>
+      <form className="new-card-form__form " onSubmit={this.onSubmit}>
 
         <div>
           <label className="new-card-form__form-label" htmlFor="text">Message: </label>
@@ -69,7 +69,7 @@ class NewCardForm extends Component {
           />
         </div>
         <input
-          className="btn btn-success"
+          className="new-card-form__form-button"
           type="submit"
           name="submit"
           value="Add a Card"

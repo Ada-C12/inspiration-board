@@ -23,7 +23,7 @@ class Board extends Component {
         this.setState({ cards: response.data });
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: error.cause });
       });
   }
 
@@ -55,7 +55,7 @@ class Board extends Component {
         });
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: error.cause });
       });
   };
 
