@@ -39,8 +39,6 @@ class Board extends Component {
         error: undefined
       });
 
-      console.log(this.state.cards)
-
     })
     .catch((error) => {
       this.setState({ error: error.message });
@@ -66,8 +64,6 @@ class Board extends Component {
         error: error.message,
       })
     });
-
-    console.log(this.state.cards)
   }
 
   deleteCard = (identifier) => {

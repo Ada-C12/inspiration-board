@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import emojiDictionary from 'emoji-dictionary';
 import './Card.css';
@@ -25,7 +25,10 @@ const Card = ({ emoji, text, identifier, onButtonClick }) => {
 }
 
 Card.propTypes = {
-
+  emoji: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  identifier: PropTypes.number.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 export default Card;

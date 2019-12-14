@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import emoji from 'emoji-dictionary';
+import emojiDictionary from 'emoji-dictionary';
 import './NewCardForm.css';
 
 const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
@@ -42,6 +42,14 @@ class NewCardForm extends Component {
     this.props.addCardCallback(newCard);
   }
 
+  showEmojiList = () => {
+    const emojiList = EMOJI_LIST.map((emoji, i) => {
+      return <option key={i} label={emoji} value={emoji}>{emojiDictionary.getUnicode(emoji)}</option>   
+    })
+
+   return emojiList
+  }
+
   render() {
     return (
       <div className="new-card-form">
@@ -67,9 +75,7 @@ class NewCardForm extends Component {
                 onChange={this.onFieldChange}
                 className="new-card-form__form-textarea"
               >
-                <option value=""></option>                
-                <option value="heart_eyes">heart eyes</option>
-                <option value="beer">beer</option>
+                {this.showEmojiList()}
               </select>
           </div>
           <div >
