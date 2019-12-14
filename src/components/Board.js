@@ -87,9 +87,4 @@ class Board extends Component {
 
 }
 
-// Board.propTypes = {
-//   url: propTypes.string,
-//   boardName: propTypes.string,
-// };
-
 export default Board;

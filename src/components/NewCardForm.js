@@ -39,6 +39,13 @@ class NewCardForm extends Component {
     }
 
   render () {
+
+    const emojiDropDown = EMOJI_LIST.map((emojiName) => {
+        return (
+          <option value={emojiName}>{emoji.getUnicode(emojiName)}</option>
+        )
+      });
+
     return (
       <div className="new-card-form">
         <h3 className="new-card-form__header">Add a Card</h3>
@@ -59,7 +66,7 @@ class NewCardForm extends Component {
           </textarea>
         </div>
 
-        <div>
+        {/* <div>
           <label className="new-card-form__form-label" htmlFor="emoji">Emoji: </label>
           <input
             name="emoji"
@@ -67,7 +74,21 @@ class NewCardForm extends Component {
             onChange={this.onInputChange}
             value={this.state.emoji}
           />
+        </div> */}
+
+        <div>
+          <label className="new-card-form__form-label" htmlFor="emoji">Emoji: </label>
+          <select
+            className="new-card-form__form-select"
+            name="emoji"
+            id="emoji"
+            onChange={this.onInputChange}
+            value={this.state.emoji}
+          >
+          {emojiDropDown}
+          </select>
         </div>
+
         <input
           className="new-card-form__form-button"
           type="submit"
