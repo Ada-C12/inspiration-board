@@ -10,11 +10,8 @@ class Card extends Component {
 
     return (
       <div className="card">
-        <ul className="card__content">
-          <li>{this.props.id}</li>
-          <li className="card__content-text">{this.props.text}</li>
-          {emojiImage}
-        </ul>
+          <p className="card__content card__content-text">{this.props.text}</p>
+          <p className="card__content card__content-emoji">{emojiImage}</p>
         <button onClick={() => {this.props.deleteCardCallback(this.props.id)}} className="card__delete" type="button"
         >Delete
         </button>

@@ -32,7 +32,7 @@ class Board extends Component {
 
   deleteCard = (cardId) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
-      .then((response) => {
+      .then(() => {
         const cardList = this.state.cards.filter((card) => card.id !== cardId);
   
         this.setState({ cards: cardList });
@@ -46,7 +46,8 @@ class Board extends Component {
     axios.post(`https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`, card)
       .then((response) => {
         const updatedCards = this.state.cards;
-        updatedCards.push(response.data);
+        console.log(response.data)
+        updatedCards.push(response.data.card);
         this.setState({
           cards: updatedCards,
           error: ''
@@ -74,8 +75,8 @@ class Board extends Component {
     return (
       <div>
         <h1>{this.state.error}</h1>
-        {console.log(this.state.cards)}
-        {this.cardItems()}
+        <section className="board">{this.cardItems()}</section>
+        <NewCardForm addCardCallback={this.addCard}/>
       </div>
     )
   }
