@@ -12,14 +12,43 @@ class Board extends Component {
     super();
 
     this.state = {
-      cards: [],
+      cards: []
+
+       
     };
   }
+  // wave#2
+  componentDidMount() {
+    // API get request here
+    axios.get('https://inspiration-board.herokuapp.com/boards/Yasmin/cards')
+      .then((response) => {
+        this.setState({
+         cards: response.data,
+        });
+        console.log(this.state.cards)
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
+
 
   render() {
+    const cards = this.state.cards.map((card, i) =>{
+      // console.log(card)
+      return (
+        <Card
+        key={i}
+        text={card.card.text}
+        emoji={card.card.emoji}
+
+        />
+      );
+    });
+
     return (
       <div>
-        Board
+        { cards }
       </div>
     )
   }
