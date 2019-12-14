@@ -11,6 +11,7 @@ class Card extends Component {
         {/* Card */}
         <p>{this.props.text}</p>
         <p>{emoji.getUnicode(`${this.props.emoji}`)}</p>
+        <input type="button" value="Delete" className="card__delete" onClick={() => {this.props.onDeleteCard(this.props.id)}} />
        
       </div>
     )

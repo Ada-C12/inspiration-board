@@ -13,17 +13,18 @@ class Board extends Component {
 
     this.state = {
       cards: []
-
-       
     };
   }
   // wave#2
   componentDidMount() {
     // API get request here
+    this.getCards()
+  }
+  getCards = () => {
     axios.get('https://inspiration-board.herokuapp.com/boards/Yasmin/cards')
       .then((response) => {
         this.setState({
-         cards: response.data,
+          cards: response.data,
         });
         console.log(this.state.cards)
       })
@@ -31,17 +32,32 @@ class Board extends Component {
         this.setState({ error: error.message });
       });
   }
-
-
+  addCard = (text, emoji)=> {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/Yasmin/cards?text=${text}&emoji=${emoji}`)
+      .then((response) => {
+        // console.log(response)
+        this.getCards()
+      });
+  };
+  
+  onDeleteCard = (id) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`, id)
+      .then((response) => {
+        // console.log(response)
+        this.getCards()
+      });
+  };
+      
   render() {
-    const cards = this.state.cards.map((card, i) =>{
+    const cards = this.state.cards.map((card) =>{
       // console.log(card)
       return (
         <Card
-        key={i}
+        key={card.card.id}
+        id={card.card.id}
         text={card.card.text}
         emoji={card.card.emoji}
-
+        onDeleteCard={this.onDeleteCard}
         />
       );
     });
