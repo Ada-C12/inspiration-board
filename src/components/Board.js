@@ -18,17 +18,17 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${this.props.url}/${this.props.boardName}/cards`)
+    axios.get(`${this.props.url}/boards/${this.props.boardName}/cards`)
     .then((response) => {
       let cardData = []
 
       Object.keys(response.data).forEach((element) => {
-
-        const { emoji, text } = response.data[element].card
+        const { emoji, text, id } = response.data[element].card
         const elementText = (text === null ? '' : text)
         const elementEmoji = (emoji === null ? '' : emoji)
 
         cardData.push({
+          id: id,
           text: elementText,
           emoji: elementEmoji
         })
@@ -39,6 +39,8 @@ class Board extends Component {
         error: undefined
       });
 
+      console.log(this.state.cards)
+
     })
     .catch((error) => {
       this.setState({ error: error.message });
@@ -46,7 +48,7 @@ class Board extends Component {
   }
 
   addCard = (card) => {
-    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
+    axios.post(`${this.props.url}/boards/${this.props.boardName}/cards`, card)
     .then((response) => {
 
       const { cards } = this.state;
@@ -68,16 +70,29 @@ class Board extends Component {
     console.log(this.state.cards)
   }
 
-  deleteCard = () => {
+  deleteCard = (identifier) => {
+    axios.delete(`${this.props.url}/cards/${identifier}`)
+      .then((response) => {
+        const cards = this.state.cards.filter((card) => card.id !== identifier );
     
+        this.setState({
+          cards,
+          error: undefined
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message,
+        })
+      });
   }
 
 
   buildCards = () => {
-    const cardElements = this.state.cards.map((card, i) => {
+    const cardElements = this.state.cards.map((card) => {
       return <Card 
         key={card.id}
-        identifier={i}
+        identifier={card.id}
         text={card.text}
         emoji={card.emoji}
         onButtonClick={this.deleteCard}

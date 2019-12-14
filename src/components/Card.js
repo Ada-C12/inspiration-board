@@ -14,9 +14,11 @@ const Card = ({ emoji, text, identifier, onButtonClick }) => {
           {emoji ? emojiDictionary.getUnicode(emoji) : '' }
         </div>
       </div>
-      <button className="card__delete" onClick={() => onButtonClick(identifier)} >
+      <button 
+        type="button"
+        className="card__delete" 
+        onClick={() => onButtonClick(identifier)} >
           Delete
-          {console.log(identifier)}
       </button>
     </div>
   )
