@@ -18,7 +18,9 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
+        
         {this.props.cardText}
+
         {this.props.cardEmoji ? this.emojiPresent(): ''}
       </div>
     )

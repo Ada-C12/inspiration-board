@@ -11,23 +11,42 @@ class Board extends Component {
   constructor() {
     super();
 
-    
     this.state = {
       cards: [],
       hardcodedCards: CARD_DATA.cards
     };
   }
 
+  componentDidMount() {
+    const {url, boardName} = this.props;
+    
+    const boardCards = `${url}${boardName}/cards`;
+    axios.get(boardCards)
+      .then((response) => {
+        console.log(response.data)
+        this.setState({ 
+          // setState replaces the initial value of cards
+          cards: response.data 
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message 
+        });
+      });
+  }
+
   makeCollection () {
-    const hardcodedCardsCollection = this.state.hardcodedCards.map((card, i) => {
+    const apiCards = this.state.cards.map((card, i) => {
+
       return <Card
-        cardText={card.text}
-        cardEmoji={card.emoji}
+        cardText={card.card.text}
+        cardEmoji={card.card.emoji}
         key={i}
       />;
     }
     );
-    return hardcodedCardsCollection
+    return apiCards
   }
 
   render() {
@@ -38,7 +57,6 @@ class Board extends Component {
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
