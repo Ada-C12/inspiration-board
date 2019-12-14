@@ -35,6 +35,7 @@ class Board extends Component {
     
     axios.delete(`${ this.props.url }cards/${ id }`)
       .then((response) => {
+        console.log(this.state.cards);
         const cards = this.state.cards.filter((element) => element.card.id !== response.data.card.id);
 
         this.setState({

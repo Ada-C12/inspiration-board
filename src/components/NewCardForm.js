@@ -28,6 +28,7 @@ class NewCardForm extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
 
+    // I'm under the impression that we're allowed to leave either text or emoji blank but not both
     if (this.state.text || this.state.emoji) {
       this.props.addCardCallback(this.state);
 
