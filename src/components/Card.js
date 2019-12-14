@@ -9,20 +9,19 @@ class Card extends Component {
     super();
     this.state = {
       text: props.text,
-      emoji: props.emoji,
-  
+      emoji: props.emoji || props.Emoji ,
     }
   }
   render() {
     console.log(this);
-    
+    const cardEmoji = this.state.emoji;    
     return (
       <div className="card card__content">
         <div className="card__content-text">
         {this.state.text}
         </div>
         <div className="card__content-emoji">
-          {this.state.emoji}
+          {cardEmoji ? emoji.getUnicode(cardEmoji) : ''}
         </div>
       </div>
     )
