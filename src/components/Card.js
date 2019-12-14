@@ -14,14 +14,22 @@ class Card extends Component {
         <div className="card__content">
         <p className="card__content-text">{this.props.text}</p>
         {/* <p className="card__content-emoji">{showEmoji}</p> */}
+
+        <button
+          type="button"
+          className="card__delete"
+          onClick={() => { this.props.deleteCardCallback(this.props.id) }}
+        >
+          Delete
+        </button>
         </div>
       </div>
     )
   }
 }
 
-Card.propTypes = {
-  text: PropTypes.string.isRequired,
-};
+// Card.propTypes = {
+//   text: PropTypes.string.isRequired,
+// };
 
 export default Card;

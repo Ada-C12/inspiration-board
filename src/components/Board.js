@@ -45,16 +45,30 @@ class Board extends Component {
       });
   }
 
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/boards/hallie/cards/${ cardId }`)
+      .then((response) => {
+        const cards = this.state.cards.filter((card) => card.card.id !== cardId);
+  
+        this.setState({
+          cards,
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
 
   render() {
 
     const getCards = this.state.cards.map((card) => {
         return (
-          <div>
+          <div key={card.card.id} >
         <Card 
-          key={card.card.id}
+          id={card.card.id}
           text={card.card.text}
           emoji={card.card.emoji}
+          deleteCardCallback={this.deleteCard}
         /></div>
         )
       });
@@ -73,9 +87,9 @@ class Board extends Component {
 
 }
 
-Board.propTypes = {
-  // url: propTypes.string,
-  // boardName: propTypes.string,
-};
+// Board.propTypes = {
+//   url: propTypes.string,
+//   boardName: propTypes.string,
+// };
 
 export default Board;
