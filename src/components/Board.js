@@ -14,11 +14,14 @@ class Board extends Component {
     this.boardName = props.boardName;
     this.state = {
       cards: [],
-      error: ''
+      error: '',
+      newCardForm: {text: '', emoji: ''}
     };
   }
   
   componentDidMount() {
+    console.log('componentDidMount ran');
+    
     axios.get(this.url + this.boardName + '/cards')
       .then(response => {
         this.setState({
@@ -31,18 +34,21 @@ class Board extends Component {
         })        
     })
   }
-  addCard = (newCard) => {
-    console.log(newCard);
+
+  addCard = (data) => {
+    console.log('addCard in Board ran');
+    console.log('state in Board is ' + this.state.newCardForm.text + ' the end');
+    
+    const newCard = {card: data};
     const cards = this.state.cards;
-    cards.push({ text: newCard.text, emoji: newCard.emoji });
+    cards.push(newCard);
     this.setState({
-      cards: cards
+      cards: cards,
+      newCardForm: {text: '', emoji: ''}
     })
-    console.log(cards);
-    
   }
+
   render() {
-    
     const cards = this.state.cards.map((card, i) => {
       card = card.card;
         return (
@@ -59,10 +65,10 @@ class Board extends Component {
     } else {
       return (
         <div className="board">
-          <div>
-            <NewCardForm addCard={this.addCard}></NewCardForm>
-          </div>
           {cards}
+          <div>
+            <NewCardForm addCard={this.addCard} newCardForm={this.state.newCardForm}></NewCardForm>
+          </div>
         </div>
       )
     }
@@ -72,8 +78,7 @@ class Board extends Component {
 
 Board.propTypes = {
   url: PropTypes.string.isRequired,
-  boardName: PropTypes.string.isRequired
-
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
