@@ -16,15 +16,20 @@ class Board extends Component {
     };
   }
 
+  makeCollection () {
+    const cardCollection = this.state.cards.map((card,i) => {
+      return <Card key={i} cardData={this.state.cards}/>;
+    });
+    return cardCollection
+  }
 
   render() {
     return (
-      <div>
-        <Card cardData={this.state.cards}/>
-      </div>
+      <ul>
+        {this.makeCollection()}
+      </ul>
     )
   }
-
 }
 
 Board.propTypes = {
