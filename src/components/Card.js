@@ -6,17 +6,27 @@ import './Card.css';
 
 class Card extends Component {
 
-  printableCards = this.props.cardData.map((card, i) => {
-     return <div key={i}>
-       {card.text || card.emoji || card.Emoji}
-     </div>
-    });
-    // {emoji.getUnicode("heart_eyes")}
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: props.text,
+      emoji: props.emoji,
+    }
+  }
+
+  renderEmoji () {
+    if (this.state.emoji) {
+      const curEmoji = this.state.emoji;
+      return emoji.getUnicode(curEmoji)
+    }
+  }
 
   render() {
     return (
       <div className="card">
-        {this.printableCards}
+        {this.state.text}
+        {this.renderEmoji()}
       </div>
     )
   }

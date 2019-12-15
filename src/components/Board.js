@@ -17,8 +17,11 @@ class Board extends Component {
   }
 
   makeCollection () {
-    const cardCollection = this.state.cards.map((card,i) => {
-      return <Card key={i} cardData={this.state.cards}/>;
+    const cardCollection = this.state.cards.map((card, i) => {
+      return <Card
+      key={i}
+      text={card.text}
+      emoji={card.emoji || card.Emoji}/>;
     });
     return cardCollection
   }
