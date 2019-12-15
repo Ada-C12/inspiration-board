@@ -38,7 +38,7 @@ class Board extends Component {
     axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
       .then((response) => {
         const newCardList = this.state.cards
-        newCardList.push(card)
+        newCardList.push(response.data.card)
 
         this.setState({
           cards: newCardList
@@ -50,32 +50,35 @@ class Board extends Component {
   }
 
   deleteCard = (cardId) => {
-    const currentCards = this.state.cards;
+    // const currentCards = this.state.cards;
 
-    this.setState({
-      cards: currentCards.filter((card) => card.id !== cardId),
-    });
-    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
-      .then((response) => {
-        if (response.status === 'error') {
-          this.setState({
-            cards: currentCards,
-          });
-        }
-      })
-
+    // this.setState({
+    //   cards: currentCards.filter((card) => card.id !== cardId),
+    // });
     // axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
     //   .then((response) => {
-    //     // console.log(`${cardId} THIS IS THE ID!!!!!!`)
-    //     const cardList = this.state.cards.filter((cardInfo) => cardInfo.card.id !== cardId);
-
-    //     this.setState({
-    //       cardList,
-    //     });
+    //     if (response.status === 'error') {
+    //       this.setState({
+    //         cards: currentCards,
+    //       });
+    //     }
     //   })
-    //   .catch((error) => {
-    //     this.setState({ error: error.message });
-    //   });
+
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+      .then((response) => {
+        console.log(`${cardId} THIS IS THE ID!!!!!!`);
+        // console.log(this.state.cards);
+        const cardList = this.state.cards.filter((cardInfo) => cardInfo.id !== cardId);
+        console.log(this.state.cards);
+        // console.log('cardlist', cardList);
+
+        this.setState({
+          cards: cardList,
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
   };
 
   render() {
