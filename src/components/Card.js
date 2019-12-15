@@ -25,8 +25,8 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        {this.state.text}
-        {this.renderEmoji()}
+        <div className="card__content-text">{this.state.text}</div>
+        <div className="card__content-emoji">{this.renderEmoji()}</div>
       </div>
     )
   }
