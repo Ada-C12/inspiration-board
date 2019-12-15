@@ -20,7 +20,7 @@ class Board extends Component {
   }
   componentDidMount() {
     axios.get('https://inspiration-board.herokuapp.com/boards/BogartsBoard/cards')
-    .then ((response) => {
+    .then((response) => {
       this.setState({
         cards: response.data
       })
@@ -31,11 +31,26 @@ class Board extends Component {
       })
   })};
 
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+
+      .then((response) => {
+        const updatedCards = this.state.cards.filter((card) => card.card.id !== cardId);
+
+        this.setState({
+          cards: updatedCards,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({error: error.message});
+      });
+  }
 
   render() {
     const mappingCards = this.state.cards.map ((card, i) => {
       return  (
-        <Card text={card.card.text} emoji={card.card.emoji} key={i}/> 
+        <Card text={card.card.text} emoji={card.card.emoji} key={i} deleteCardCallBack={this.deleteCard} cardId={card.card.id}/> 
         // card for object card how we access shape
       )
     });
@@ -49,7 +64,7 @@ class Board extends Component {
 
 Board.propTypes = {
 url: PropTypes.string.isRequired,
-boardName: PropTypes.string.isRequired
+boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
