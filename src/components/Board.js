@@ -11,17 +11,32 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    const cards = CARD_DATA.cards
+    // const cards = CARD_DATA.cards
 
     this.state = {
-      cards: cards,
+      cards: [],
+      errors: ''
     };
   }
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/BogartsBoard/cards')
+    .then ((response) => {
+      this.setState({
+        cards: response.data
+      })
+  })
+    .catch((error) => {
+      this.setState({
+        error: error.message
+      })
+  })};
+
 
   render() {
     const mappingCards = this.state.cards.map ((card, i) => {
       return  (
-        <Card text={card.text} emoji={card.emoji} key={i}/>
+        <Card text={card.card.text} emoji={card.card.emoji} key={i}/> 
+        // card for object card how we access shape
       )
     });
     return (
@@ -33,7 +48,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+url: PropTypes.string.isRequired,
+boardName: PropTypes.string.isRequired
 };
 
 export default Board;
