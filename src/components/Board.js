@@ -12,17 +12,31 @@ class Board extends Component {
     super();
 
     this.state = {
-      cards: CARD_DATA["cards"],
+      cards: [],
+      error: ''
     };
   }
 
-  makeCards () {
-    
+  componentDidMount = () => {
+    axios.get('https://inspiration-board.herokuapp.com/boards/takenote/cards')
+      .then((response) => {
+        console.log('cards received')
+        this.setState({
+          cards: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        this.setState({error: error.message});
+      });
+  }
+  
+  makeCards () {  
     const cardCollection = this.state.cards.map((card, i) => {
       return <Card 
         key={i}
-        text={card.text}
-        cardEmoji={card.emoji}
+        text={card.card.text}
+        cardEmoji={card.card.emoji}
       />;
     });
     return cardCollection
