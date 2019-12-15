@@ -37,9 +37,28 @@ class Board extends Component {
         key={i}
         text={card.card.text}
         cardEmoji={card.card.emoji}
+        deleteCardCallback={this.deleteCard}
       />;
     });
     return cardCollection
+  }
+
+  deleteCard = (cardId) => {
+     axios.delete('https://inspiration-board.herokuapp.com/cards', cardId)
+    .then((response) => {
+      console.log(response.data);
+      const { cards } = this.state;
+      cards.filter(card => card.id !== cardId)
+      this.setState({
+        cards,
+        error: undefined,
+      });
+    })
+    .catch((error) => {
+      this.setState({
+        error: error.message,
+      })
+    })
   }
 
   addCard = (card) => {

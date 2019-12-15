@@ -12,14 +12,16 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        <div className="card__content">
-          <div className="card__content-text">
-            <p>{this.props.text}</p>
-          </div>
-          <div className="card__content-emoji">
-            {this.props.cardEmoji ? <p>{emoji.getUnicode(this.props.cardEmoji)}</p> : "" }
-          </div>
+        <div className="card__content card__content-text">
+          <p>{this.props.text}</p>
         </div>
+        <div className="card__content card__content-emoji">
+          {this.props.cardEmoji ? <p>{emoji.getUnicode(this.props.cardEmoji)}</p> : "" }
+        </div>
+        <button 
+          onClick={this.props.deleteCardCallback(this.id)}className="card__content card__delete">
+          Delete 
+        </button>
       </div>
     )
   }
@@ -28,7 +30,8 @@ class Card extends Component {
 Card.propTypes = {
   text: PropTypes.string,
   emoji: PropTypes.string,
-  addCardCallback: PropTypes.func
+  addCardCallback: PropTypes.func,
+  deleteCardCallback: PropTypes.func
 };
 
 export default Card;
