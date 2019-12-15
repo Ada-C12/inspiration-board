@@ -6,9 +6,17 @@ import './Card.css';
 
 class Card extends Component {
 
+  deleteCard = () => {
+    this.props.deleteCardCallack(this.props.id)
+  }
+
   render() {
+    const deleteButton = <div>
+      <input type="button" value="Delete Card" onClick={this.deleteCard}></input>
+    </div>
     return (
       <div className="card">
+        {deleteButton} 
         <p> { this.props.text }</p>
         {
           this.props.emoji && 
@@ -21,7 +29,9 @@ class Card extends Component {
 
 Card.propTypes = {
   text: PropTypes.string,
-  emoji: PropTypes.string
+  emoji: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  deleteCardCallack: PropTypes.func.isRequired
 
 };
 

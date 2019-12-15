@@ -40,10 +40,27 @@ class Board extends Component {
       });
   }
 
+  deleteCardCallack = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+      .then(() => {
+        const updatedCards = this.state.cards.filter((card) => card.card.id !== cardId);
+
+        this.setState({
+          cards: updatedCards,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({error: error.message});
+      });
+
+  };
+
+
   render() {
     const cardEntries = this.state.cards.map((cardObject, i) => {
       return (
-        <Card text={cardObject.card.text} emoji={cardObject.card.emoji} key={i}/>
+        <Card text={cardObject.card.text} emoji={cardObject.card.emoji} key={i} deleteCardCallack={this.deleteCardCallack} id={cardObject.card.id}/>
       )
     });
 
