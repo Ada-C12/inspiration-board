@@ -17,18 +17,21 @@ class Board extends Component {
     };
   }
 
-  allCards = CARD_DATA
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/georgina/cards')
+      .then((response) => {
+        this.setState({ cards: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
 
   makeCardsCollection () {
-    let updatedCards = this.state.cards
-    this.allCards.cards.forEach(card => {
-      updatedCards.push(card);
-    });
-    
     const cardsCollection = this.state.cards.map((card, i) => {
       return <Card
-        text={card.text}
-        emoji={card.Emoji}
+        text={card.card.text}
+        emoji={card.card.emoji}
         key={i}
       />;
     }
@@ -36,6 +39,7 @@ class Board extends Component {
     return cardsCollection
   }
 
+  
   render() {
     return (
       <div>
