@@ -59,18 +59,19 @@ class Board extends Component {
       });
     };
 
-    addCard = (card) =>{
-      axios.post(this.state.url+this.state.boardName+'/cards')
-        .then((response) => {
-          const { board } = this.state;
-          board.push(card);
-          this.setState(board)
-        })
-        .catch((error) => {
-          this.setState({error: error.message});
-          console.log(this.state.error)
-        });
-    };
+  addCard = (card) =>{
+    axios.post(this.state.url+this.state.boardName+'/cards', card)
+      .then((response) => {
+        const { board } = this.state;
+        board.push(card);
+        this.setState(board)
+        console.log('did post')
+      })
+      .catch((error) => {
+        this.setState({error: error.message});
+        console.log(this.state.error)
+      });
+  };
 
   render() {
     return (
