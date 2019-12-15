@@ -54,14 +54,23 @@ class Board extends Component {
         });
       })
       .catch((error) => {
-        this.setState({ error: error.cause });
+        this.setState({ error: error.message });
         console.log(this.state.error)
       });
     };
 
     addCard = (card) =>{
-
-    }
+      axios.post(this.state.url+this.state.boardName+'/cards')
+        .then((response) => {
+          const { board } = this.state;
+          board.push(card);
+          this.setState(board)
+        })
+        .catch((error) => {
+          this.setState({error: error.message});
+          console.log(this.state.error)
+        });
+    };
 
   render() {
     return (
