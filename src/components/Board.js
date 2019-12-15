@@ -41,11 +41,30 @@ class Board extends Component {
     });
     return cardCollection
   }
+
+  addCard = (card) => {
+    axios.post('https://inspiration-board.herokuapp.com/boards/takenote/cards', card)
+    .then((response) => {
+      console.log(response.data);
+      const { cards } = this.state;
+      cards.push(response.data);
+      this.setState({
+        cards,
+        error: undefined,
+      });
+    })
+    .catch((error) => {
+      this.setState({
+        error: error.message,
+      })
+    })
+  }
   
   render() {
     return (
       <div class="board">
           {this.makeCards()}
+          <NewCardForm addCardCallback={this.addCard}/>
       </div>
     );
   }
