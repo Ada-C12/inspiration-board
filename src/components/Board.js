@@ -19,7 +19,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const myCards = 'https://inspiration-board.herokuapp.com/boards/Dani/cards'
+    const myCards = `${this.props.url+this.props.boardName}/cards`
     Axios.get(myCards).then((response) => {
       this.setState({
         cards: response.data,
@@ -51,7 +51,7 @@ class Board extends Component {
   
   render() {
     return (
-      <div>
+      <div className="board">
         {this.makeCollection()}
       </div>
     )

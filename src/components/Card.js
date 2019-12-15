@@ -8,15 +8,17 @@ import './Card.css';
 class Card extends Component {
   
   render() {
-   
-    // const cardsCollection = this.props.cards.map((card, i) => {
-    //   return card.text
-    // });
-
+  
     return (
       <div className="card">
-        {this.props.text}
-        {this.props.emoji}
+        <div className="card__content">
+          <div className="card__content-text">
+            {this.props.text}
+          </div>
+          <div card__content-emoji>
+            {this.props.emoji}
+          </div>
+        </div>
       </div>
     )
   }
