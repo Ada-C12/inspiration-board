@@ -16,19 +16,50 @@ class NewCardForm extends Component {
 
   onInputChange = (event) => {
     const updatedState = {};
-
     const field = event.target.name;
     const value = event.target.value;
     updatedState[field] = value;
     this.setState(updatedState);
   }
 
-  onSubmitHandler = (event) => {
+  onFormSubmit = (event) => {
     event.preventDefault();
-    if (this.state.text || this.state.emoji) {
-
+    const message = {
+      text: this.state.text,
+      emoji: this.state.emoji
     }
+    this.setState({
+      text: '',
+      emoji: '',
+    })
+    this.props.addCardCallback(message)
   }
-
+  
+  render() {
+    return (
+      <form className="new-card-form" onSubmit={this.onFormSubmit}>
+        <div>
+          <label htmlFor="text">Text:</label>
+          <input
+            name="text"
+            value={this.state.text}
+            onChange={this.onInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="emoji">Emoji:</label>
+          <input
+            name="emoji"
+            value={this.state.emoji}
+            onChange={this.onInputChange}
+          />
+        </div>
+        <input new-card-form__form-button
+          type="submit"
+          value="Add Card"
+        />
+      </form>
+    );
+  }
 }
 export default NewCardForm
