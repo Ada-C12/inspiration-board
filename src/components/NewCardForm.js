@@ -56,7 +56,7 @@ class NewCardForm extends Component {
         <div className="new-card-form__form">
           <label className="new-card-form__form-label" htmlFor="text">Text</label>
           <input
-          placeholder="Inspiration"
+            placeholder=""
             name="text"
             onChange={this.onFormChange}
             value={this.state.text}
