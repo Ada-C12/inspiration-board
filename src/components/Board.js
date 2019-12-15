@@ -17,10 +17,9 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const url = `${this.props.url}/${this.props.boardName}/cards`;
+    const url = `${this.props.url}${this.props.boardName}/cards`;
     axios.get(url)
       .then((response) => {
-        console.log(response.data)
         this.setState({cards: response.data})
       })
       .catch((error) => {
@@ -28,22 +27,35 @@ class Board extends Component {
       });
   }
 
+  deleteCard = (id) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
+      .then((response) => {
+        const cards = this.state.cards.filter((card) => card["card"]["id"] !== id);
+
+        this.setState({cards,});
+      })
+      .catch((error) => {
+        this.setState({error: error.message});
+      });
+  }
+
   render() {
-    console.log(this.state.cards)
     const makeCards = (cards) => {
       return cards.map ((card, i) => {
         return <Card
           key={i}
+          id={card["card"]["id"]}
           text={card["card"]["text"]}
           emoji={card["card"]["emoji"]}
+          deleteCardCallback={this.deleteCard}
         />
       });
     }
 
     return (
       <div className="board">
-        {this.state.error ? <p>Error loading cards: {this.state.error}</p> : ""}
-        {makeCards(this.state.cards)}
+        {this.state.error ? <p className="validation-errors-display">Error occurred: {this.state.error}</p> : ""}
+        {this.state.cards.length > 0 ? makeCards(this.state.cards) : ""}
       </div>
     )
   }
