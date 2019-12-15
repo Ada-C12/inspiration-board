@@ -7,15 +7,6 @@ import './Card.css';
 const Card = (props) => {
   const { id, text, curEmoji, deleteCardCallback } = props;
 
-
-  // const renderEmoji = () => {
-  //   if (emoji) {
-  //     console.log('rendering emoji')
-  //     const curEmoji = emoji;
-  //     return emoji.getUnicode(curEmoji)
-  //   }
-  // }
-
   return (
     <div className="card">
       <div className="card__content">

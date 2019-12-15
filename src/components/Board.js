@@ -37,6 +37,7 @@ class Board extends Component {
     const cardCollection = this.state.board.map((card, i) => {
       return <Card
       key={i}
+      id={card.card.id}
       text={card.card.text}
       curEmoji={card.card.emoji/* || card.Emoji*/}
       deleteCardCallback = {this.deleteCard}/>
@@ -44,9 +45,19 @@ class Board extends Component {
     return cardCollection
   }
 
-  deleteCard () {
-
-  }
+  deleteCard = (id) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
+      .then((response) => {
+        const updatedBoard = this.state.board.filter((card) => card.id !== id);
+        this.setState({
+          board: updatedBoard,
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.cause });
+        console.log(this.state.error)
+      });
+    };
 
   render() {
     return (
