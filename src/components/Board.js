@@ -12,31 +12,33 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      cards: CARD_DATA.cards,
+//      cards: CARD_DATA.cards,
       url: props.url,
       boardName: props.boardName,
-      boards: [],
+      board: [],
       error: ''
     };
   }
 
 
   componentDidMount () {
-    axios.get(this.state.url + this.state.url)
+    axios.get(this.state.url+this.state.boardName+'/cards')
     .then((response) => {
-      this.setState({ boards: response.data });
+      this.setState({ board: response.data });
+      console.log(this.state.board)
     })
     .catch((error) => {
       this.setState({ error: error.message });
+      console.log(this.state.error)
     });
   }
 
   makeCollection () {
-    const cardCollection = this.state.cards.map((card, i) => {
+    const cardCollection = this.state.board.map((card, i) => {
       return <Card
       key={i}
       text={card.text}
-      emoji={card.emoji || card.Emoji}/>;
+      emoji={card.emoji/* || card.Emoji*/}/>;
     });
     return cardCollection
   }
