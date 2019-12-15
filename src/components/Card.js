@@ -12,6 +12,7 @@ class Card extends Component {
 
     let displayEmoji = (this.props.emoji) ? emoji.getUnicode(this.props.emoji) : '';
     const { deleteCard, id, text } = this.props;
+    console.log(this.props);
     return (
       <div className="card">
         <section className="card__content">
