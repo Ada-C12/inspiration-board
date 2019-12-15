@@ -13,32 +13,42 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      // cards: []
-      cards: CARD_DATA['cards']
+      cards: []
+      // cards: CARD_DATA['cards']
     };
   }
 
+  componentDidMount() {
+    const myCards = 'https://inspiration-board.herokuapp.com/boards/Dani/cards'
+    Axios.get(myCards).then((response) => {
+      this.setState({
+        cards: response.data,
+      });
+    })
+    .catch((error) => {
+      // TODO
+    });
+  }
+    
   makeCollection() {
     const emoji = require("emoji-dictionary");
-    const cardsCollection = this.state.cards.map((card, i) => {
+    const cardsCollection = this.state.cards.map((singleCard) => {
+      const card = singleCard['card']
+
       if (card.emoji) {
         const name = card.emoji
-        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={i}/>
+        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={card.id}/>
       } else if ( card.Emoji ) {
         const name = card.Emoji
-        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={i}/>
+        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={card.id}/>
       } else {
-        return < Card text={card.text}  key={i}/>
+        return < Card text={card.text}  key={card.id}/>
       }
     });
 
     return cardsCollection
   } 
   
-  // componentDidMount() {
-  //   Axios.get(this.props.url).then(res => console.log(res.data))
-  // }
-
   render() {
     return (
       <div>
