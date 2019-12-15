@@ -46,7 +46,7 @@ class NewCardForm extends Component {
 
     return (
       <form className="new-card-form" onSubmit={this.onFormSubmint}>
-        <h3>Add Inspriration Card</h3>
+        <h3>Add Inspiration Card</h3>
         { /* A form should go here! */}
         <div className="new-card-form__form">
           <label className="new-card-form__form-label" htmlFor="text">Text</label>
@@ -81,7 +81,7 @@ class NewCardForm extends Component {
       
 
 NewCardForm.propTypes = {
-  addCardCallback: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
 };
 
 
