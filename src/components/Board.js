@@ -14,13 +14,15 @@ class Board extends Component {
     this.state = {
       cards: CARD_DATA.cards,
       url: props.url,
+      boardName: props.boardName,
       boards: [],
-      error: '',
+      error: ''
     };
   }
 
+
   componentDidMount () {
-    axios.get(this.state.url)
+    axios.get(this.state.url + this.state.url)
     .then((response) => {
       this.setState({ boards: response.data });
     })
