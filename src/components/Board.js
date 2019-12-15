@@ -13,8 +13,8 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      cards: []
-      // cards: CARD_DATA['cards']
+      cards: [],
+      error: '',
     };
   }
 
@@ -22,34 +22,64 @@ class Board extends Component {
     const myCards = `${this.props.url+this.props.boardName}/cards`
     Axios.get(myCards).then((response) => {
       this.setState({
-        cards: response.data,
+        cards: response.data.map(r => r.card),
       });
     })
     .catch((error) => {
-      // TODO
+      this.setState({ error: error.message });    
     });
   }
+
+  deleteCard = (id) => {
+    const cardURL = `https://inspiration-board.herokuapp.com/cards/${ id }`
+    
+    axios.delete(cardURL)
+    .then(res => {
+      const updatedCards = this.state.cards.filter((card) => {
+        return card.id !== id;
+      });
+
+      this.setState({ 
+        cards: updatedCards
+      });
+    })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
     
   makeCollection() {
     const emoji = require("emoji-dictionary");
-    const cardsCollection = this.state.cards.map((singleCard) => {
-      const card = singleCard['card']
+    const cardsCollection = this.state.cards.map((card) => {
 
       if (card.emoji) {
         const name = card.emoji
-        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={card.id}/>
+        return < Card 
+          text={card.text} 
+          emoji={emoji.getUnicode(name)} 
+          id={card.id}
+          deleteCard={this.deleteCard}
+          />
       } else if ( card.Emoji ) {
         const name = card.Emoji
-        return < Card text={card.text} emoji={emoji.getUnicode(name)} key={card.id}/>
+        return < Card 
+          text={card.text} 
+          emoji={emoji.getUnicode(name)} 
+          id={card.id}
+          deleteCard={this.deleteCard}/>
       } else {
-        return < Card text={card.text}  key={card.id}/>
+        return < Card 
+          text={card.text}  
+          id={card.id}
+          deleteCard={this.deleteCard}/>
       }
     });
 
     return cardsCollection
   } 
-  
+
   render() {
+    console.log("a")
     return (
       <div className="board">
         {this.makeCollection()}
