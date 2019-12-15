@@ -45,7 +45,7 @@ class Board extends Component {
 
   render() {
     return (
-      <ul>
+      <ul className="board">
         {this.makeCollection()}
       </ul>
     )
