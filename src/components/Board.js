@@ -20,7 +20,7 @@ class Board extends Component {
   }
   
   componentDidMount() {
-    console.log('componentDidMount ran');
+    console.log('component mounted');
     
     axios.get(this.url + this.boardName + '/cards')
       .then(response => {
@@ -35,24 +35,50 @@ class Board extends Component {
     })
   }
 
-  addCard = (data) => {
-    console.log('addCard in Board ran');
-    console.log('state in Board is ' + this.state.newCardForm.text + ' the end');
-    
-    const newCard = {card: data};
-    const cards = this.state.cards;
-    cards.push(newCard);
-    this.setState({
-      cards: cards,
-      newCardForm: {text: '', emoji: ''}
+  componentDidUpdate() {
+    console.log('component updated');
+  }
+
+  addCard = (data) => {    
+    axios.post(this.url + this.boardName + '/cards', data)
+      .then(response => {
+        const { cards } = this.state;
+        cards.push(response.data);
+        this.setState({
+          cards,
+          newCardForm: {text: '', emoji: ''}
+        })
+        console.log('successful post');
+      })
+      .catch(error => {
+        this.setState({
+        error: error
+      })
     })
+  }
+
+  deleteCard = (data) => {
+    axios.delete('https://inspiration-board.herokuapp.com/cards/' + data)
+      .then((response) => {
+        let { cards } = this.state;
+        let updatedCards = cards.filter(card => card.card.id !== response.data.card.id);
+        this.setState({
+          cards: updatedCards,
+        })
+        console.log('successful delete');
+      })
+      .catch(error => {
+        this.setState({
+          error: error
+        })
+      })
   }
 
   render() {
     const cards = this.state.cards.map((card, i) => {
       card = card.card;
         return (
-          <Card key={i} {...card} ></Card>
+          <Card key={i} cardId={i} deleteCardCallback={this.deleteCard} {...card} ></Card>
         )
       })
 
