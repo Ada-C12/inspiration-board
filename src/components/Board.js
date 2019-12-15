@@ -38,7 +38,7 @@ class Board extends Component {
       updatedData.push(response.data);
         this.setState({
           cards: updatedData,
-          eror: ""
+          error: ""
         });
     })
     .catch((error) => {
