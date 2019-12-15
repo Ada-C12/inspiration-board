@@ -15,6 +15,8 @@ class Card extends Component {
 }
 
 Card.propTypes = {
+  comment: PropTypes.string,
+  emoji: PropTypes.string
 
 };
 

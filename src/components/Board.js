@@ -8,18 +8,39 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cards: [],
     };
   }
 
+  cardList = () => {
+    return this.state.cards.map((card, i) => {
+      return <Card
+              key={i}
+              deleteCardCallback={this.deleteCard}
+              {...card} />
+    })
+  }
+  
+  //componentDidMount get request to get cards from api
+
+  //addCard
+
+  //deleteCard
   render() {
     return (
-      <div>
-        Board
+      <div className='board'>
+        <section >{this.cardList()} 
+        </section>
+        
+      
+
+      <section> <NewCardForm />
+      </section>
+
       </div>
     )
   }
