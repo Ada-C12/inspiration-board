@@ -20,7 +20,6 @@ class Board extends Component {
     axios.get(`${this.props.url}${this.props.boardName}/cards`)
       .then((response) => {
         this.setState({ cards: response.data });
-        console.log(response)
       })
       .catch((error) => {
         this.setState({ error: error.message });
@@ -44,16 +43,15 @@ class Board extends Component {
 
   }
   deleteCard = (cardId) => {
-    console.log(cardId)
+   
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
     .then((response) => {
       const updatedCards = this.state.cards.filter((card) => card.card.id !== cardId)
-      console.log(updatedCards)
+    
       this.setState({
         cards: updatedCards,
         error: ''
       })
-      console.log(this.state)
 
     })
     .catch((error) => {
@@ -62,7 +60,6 @@ class Board extends Component {
   
   }
   render() {
-    console.log(this.state.cards)
     const cardComponents = this.state.cards.map((card) => { 
       return(
         
@@ -72,7 +69,6 @@ class Board extends Component {
 
     )
 
-    console.log(this.state.cards)
     return (
       <div>
      
