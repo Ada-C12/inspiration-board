@@ -59,10 +59,15 @@ class Board extends Component {
       });
     };
 
+    addCard = (card) =>{
+
+    }
+
   render() {
     return (
       <ul className="board">
         {this.makeCollection()}
+        <NewCardForm addCardCallback={this.addCard}/>
       </ul>
     )
   }
