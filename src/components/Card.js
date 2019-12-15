@@ -5,9 +5,7 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
-  // deleteCard = () => {
-  //   this.props.deleteCard(this.props.index, this.props.id)
-  // }
+
   render() {
 
     let displayEmoji = (this.props.emoji) ? emoji.getUnicode(this.props.emoji) : '';

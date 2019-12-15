@@ -5,7 +5,6 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor(props) {
@@ -50,19 +49,6 @@ class Board extends Component {
   }
 
   deleteCard = (cardId) => {
-    // const currentCards = this.state.cards;
-
-    // this.setState({
-    //   cards: currentCards.filter((card) => card.id !== cardId),
-    // });
-    // axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
-    //   .then((response) => {
-    //     if (response.status === 'error') {
-    //       this.setState({
-    //         cards: currentCards,
-    //       });
-    //     }
-    //   })
 
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
       .then((response) => {
@@ -82,7 +68,6 @@ class Board extends Component {
   };
 
   render() {
-    // <NewCardForm addCardCallback={this.addCard} />
     const cards = this.state.cards.map((card, i) => {
       return (
         <Card 
