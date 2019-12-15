@@ -37,8 +37,8 @@ class Board extends Component {
     const cardCollection = this.state.board.map((card, i) => {
       return <Card
       key={i}
-      text={card.text}
-      emoji={card.emoji/* || card.Emoji*/}/>;
+      text={card.card.text}
+      emoji={card.card.emoji/* || card.Emoji*/}/>;
     });
     return cardCollection
   }

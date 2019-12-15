@@ -17,6 +17,7 @@ class Card extends Component {
 
   renderEmoji () {
     if (this.state.emoji) {
+      console.log('rendering emoji')
       const curEmoji = this.state.emoji;
       return emoji.getUnicode(curEmoji)
     }
