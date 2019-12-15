@@ -82,7 +82,7 @@ class NewCardForm extends Component {
               type="submit"
               name="submit"
               value="Add a Card"
-              onClick={this.onSubmitHandler}
+              onClick={this.onSubmit}
             />
           </div>
       </div>
