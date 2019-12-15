@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor() {
@@ -18,7 +18,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://inspiration-board.herokuapp.com/boards/hallie/cards')
+    axios.get(`${this.props.url}/${this.props.boardName}/cards`)
       .then((response) => {
         this.setState({ cards: response.data });
       })
@@ -28,7 +28,7 @@ class Board extends Component {
   }
 
   addCard = (card) => {
-    axios.post("https://inspiration-board.herokuapp.com/boards/hallie/cards", card)
+    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
       .then((response) => {
         console.log(response.data);
         const { cards } = this.state;
@@ -86,5 +86,10 @@ class Board extends Component {
   }
 
 }
+
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
+};
 
 export default Board;

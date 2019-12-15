@@ -40,9 +40,11 @@ class NewCardForm extends Component {
 
   render () {
 
-    const emojiDropDown = EMOJI_LIST.map((emojiName) => {
+    const emojiDropDown = EMOJI_LIST.map((emojiName, i) => {
         return (
-          <option value={emojiName}>{emoji.getUnicode(emojiName)}</option>
+          <option 
+          key={i}
+          value={emojiName}>{emoji.getUnicode(emojiName)}</option>
         )
       });
 
