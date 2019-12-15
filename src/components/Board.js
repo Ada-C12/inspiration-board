@@ -39,7 +39,8 @@ class Board extends Component {
         this.getCards()
       });
   };
-  
+
+
   onDeleteCard = (id) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`, id)
       .then((response) => {
@@ -58,6 +59,7 @@ class Board extends Component {
         text={card.card.text}
         emoji={card.card.emoji}
         onDeleteCard={this.onDeleteCard}
+       
         />
       );
     });
@@ -65,10 +67,10 @@ class Board extends Component {
     return (
       <div>
         { cards }
+        <NewCardForm addCard= {this.addCard}/>
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
