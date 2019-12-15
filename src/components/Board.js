@@ -38,9 +38,14 @@ class Board extends Component {
       return <Card
       key={i}
       text={card.card.text}
-      emoji={card.card.emoji/* || card.Emoji*/}/>;
+      curEmoji={card.card.emoji/* || card.Emoji*/}
+      deleteCardCallback = {this.deleteCard}/>
     });
     return cardCollection
+  }
+
+  deleteCard () {
+
   }
 
   render() {
