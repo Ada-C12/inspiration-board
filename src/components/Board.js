@@ -29,7 +29,18 @@ class Board extends Component {
     this.setState({ error: error.message });
   });
   }
-  
+
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+    .then(() => {
+      const cardList = this.state.cards.filter((card) => card.id !== cardID);
+      this.setState({ cards: cardList });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+    });
+  };
+
   render() {
     return (
       <div>
