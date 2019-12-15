@@ -7,10 +7,16 @@ import './Card.css';
 class Card extends Component {
 
   render() {
+    const { id, text, emoji, deleteCardCallback } = this.props;
     return (
       <div className="card">
-      <p>{this.props.text} </p>
-      <p>{this.props.Emoji}</p>
+      <p className="card__content-text">{text} </p>
+      <p className="card__content-emoji">{emoji}</p>
+      <button
+          className="card__delete"
+          onClick={() => { deleteCardCallback(id) }}
+        >Delete
+        </button>
       </div>
     )
   }

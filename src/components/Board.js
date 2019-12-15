@@ -14,8 +14,25 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
+
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${ cardId }`)
+      .then((response) => {
+        const updatedCards = this.state.cards.filter((card) => card.card.id !== cardId);
+  
+        this.setState({
+          cards: updatedCards,
+        });
+      })
+
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
+
 
   componentDidMount() {
     axios.get('https://inspiration-board.herokuapp.com/boards/georgina/cards')
@@ -30,9 +47,10 @@ class Board extends Component {
   makeCardsCollection () {
     const cardsCollection = this.state.cards.map((card, i) => {
       return <Card
+        id={card.card.id}
         text={card.card.text}
         emoji={card.card.emoji}
-        key={i}
+        deleteCardCallback={this.deleteCard}
       />;
     }
     );
