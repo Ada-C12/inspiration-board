@@ -17,6 +17,7 @@ class Card extends Component {
     return (
       <div className="card">
         {this.props.text}
+        {emoji.getUnicode(`${this.props.emoji}`)}
       </div>
     )
   }
