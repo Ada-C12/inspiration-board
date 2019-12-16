@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor() {
@@ -21,7 +21,6 @@ class Board extends Component {
     axios.get(`${this.props.url}${this.props.boardName}/cards` )
       .then((response) => {
         this.setState({cards: response.data});
-        console.log(this.state.cards)
       }) 
       .catch((error) => {
         this.setState({
@@ -49,6 +48,21 @@ class Board extends Component {
       });
   };
 
+  addCard = (card) => {
+    axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
+      .then((response) => {
+        let updatedData = this.state.cards;
+        updatedData.unshift(response.data);
+        this.setState({
+          cards: updatedData,
+          error: '',
+        });
+      })
+      .catch((error) => {
+        this.setState({error: error.message})
+      })
+  }
+
   allCards = () => {
     return this.state.cards.map((card) => {
       return <Card
@@ -62,9 +76,15 @@ class Board extends Component {
 
   render() {
     return (
-      <div className='board'>
-        {this.allCards()}
-      </div>
+      <section>
+        <div className='validation-errors-display'>
+          {this.state.error ? <p className='validation-errors-display__list'>{`An error occurred: ${this.state.error}`}</p> : null}
+        </div>
+        <NewCardForm addCardCallback={this.addCard}/>
+        <div className='board'>
+          {this.allCards()}
+        </div>
+      </section>
     )
   }
 
