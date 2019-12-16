@@ -10,7 +10,7 @@ class NewCardForm extends Component {
     super(props);
     this.state = {
       text: '',
-      emoji: '',
+      curEmoji: '',
     }
   }
 
@@ -25,21 +25,21 @@ class NewCardForm extends Component {
   onEmojiChange = (event) => {
     console.log(event.target.value)
     this.setState({
-      emoji: event.target.value
+      curEmoji: event.target.value
     })
-    console.log(`updated emoji: ${this.state.emoji}`)
+    console.log(`updated emoji: ${this.state.curEmoji}`)
   }
 
   onFormSubmit = (event) => {
     event.preventDefault();
     const message = {
       text: this.state.text,
-      emoji: this.state.emoji
+      curEmoji: this.state.curEmoji
     }
     console.log('state updated')
     this.setState({
       text: '',
-      emoji: '',
+      curEmoji: '',
     })
     console.log('calling callback function')
     this.props.addCardCallback(message)
@@ -59,8 +59,8 @@ class NewCardForm extends Component {
         <div>
           <label htmlFor="emoji">Emoji: </label>
           <input
-            name="emoji"
-            value={this.state.emoji}
+            name="curEmoji"
+            value={this.state.curEmoji}
             onChange={this.onEmojiChange}
           />
         </div>

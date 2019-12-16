@@ -38,7 +38,7 @@ class Board extends Component {
       key={i}
       id={card.card.id}
       text={card.card.text}
-      curEmoji={card.card.emoji/* || card.Emoji*/}
+      curEmoji={card.card.emoji}
       deleteCardCallback = {this.deleteCard}/>
     });
     return cardCollection
@@ -62,8 +62,8 @@ class Board extends Component {
     axios.post(this.state.url+this.state.boardName+'/cards', card)
       .then((response) => {
         const { board } = this.state;
-        board.push(card);
-        this.setState(board)
+        board.push(response);
+        this.setState(board);
         console.log('did post')
       })
       .catch((error) => {
