@@ -6,6 +6,7 @@ import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
+import { all } from 'q';
 
 class Board extends Component {
   constructor() {
@@ -13,13 +14,75 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
 
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${ cardId }`)
+      .then((response) => {
+        const updatedCards = this.state.cards.filter((card) => card.card.id !== cardId);
+  
+        this.setState({
+          cards: updatedCards,
+        });
+      })
+
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
+
+  addCard = (card) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/georgina/cards`, card)
+    .then((response) => {
+      const updatedCards = this.state.cards;
+      updatedCards.push(response.data);
+      this.setState({
+        cards: updatedCards,
+        error: ''
+      });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+    });
+  };
+
+
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/georgina/cards')
+      .then((response) => {
+        this.setState({ cards: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
+
+  makeCardsCollection () {
+    const cardsCollection = this.state.cards.map((card, i) => {
+      return <Card
+        id={card.card.id}
+        text={card.card.text}
+        emoji={card.card.emoji}
+        deleteCardCallback={this.deleteCard}
+        key={i}
+      />;
+    }
+    );
+    return cardsCollection
+  }
+
+  
   render() {
     return (
       <div>
-        Board
+        <ul>
+          {this.makeCardsCollection()}
+        </ul>
+        <section>
+          <NewCardForm addCardCallback={this.addCard} />
+        </section>
       </div>
     )
   }
