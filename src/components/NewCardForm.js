@@ -17,11 +17,7 @@ class NewCardForm extends Component {
 
   onInputChange = (event) => {
     const updatedState = {};
-
-    const field = event.target.name;
-    const value = event.target.value;
-
-    updatedState[field] = value;
+    updatedState[event.target.name] = event.target.value;
     this.setState(updatedState);
   }
 

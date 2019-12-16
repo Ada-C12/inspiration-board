@@ -63,7 +63,6 @@ class Board extends Component {
   addCard = (card) => {
     axios.post('https://inspiration-board.herokuapp.com/boards/takenote/cards', card)
     .then((response) => {
-      console.log(response.data);
       const { cards } = this.state;
       cards.push(response.data);
       this.setState({
