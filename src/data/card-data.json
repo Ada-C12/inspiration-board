@@ -6,7 +6,7 @@
     },
     {
       "text": "",
-      "Emoji": "heart_eyes"
+      "emoji": "heart_eyes"
     },
     {
       "text": "REST is part of work"
@@ -16,6 +16,14 @@
     },
     {
       "emoji": "beer"
+    },
+    {
+      "text": "I'm halfway done with Ada",
+      "emoji": "heart_eyes"
+    },
+    {
+      "text": "Tommy is a cat",
+      "emoji": "cat"
     }
   ]
 }

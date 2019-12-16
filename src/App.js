@@ -3,6 +3,15 @@ import './App.css';
 import Board from './components/Board';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      board: props.board
+    }
+  }
+  
+
   render() {
     return (
       <section>
@@ -10,8 +19,8 @@ class App extends Component {
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
         </header>
         <Board
-          url="https://inspiration-board.herokuapp.com/boards/"
-          boardName={`Ada-Lovelace`}
+          url="https://inspiration-board.herokuapp.com/"
+          boardName={`Mariya`}
           />
       </section>
     );
