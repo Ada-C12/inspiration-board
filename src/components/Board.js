@@ -41,7 +41,6 @@ class Board extends Component {
 
 
   onRemoveCard = (id) => {
-    console.log(`i got here! ${id}`)
     axios.delete(` https://inspiration-board.herokuapp.com/cards/${id}`)
       .then((response) => {
         this.listCards()
@@ -51,6 +50,22 @@ class Board extends Component {
           error: 'Sorry, something went wrong'
         });
       });
+  }
+
+  onAddCard = (card) => {
+    console.log(card)
+
+    axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
+      .then((response) => {
+        this.listCards()
+      })  
+      .catch((error) => {
+        this.setState({
+          error: 'Sorry, something went wrong'
+        });
+      });
+
+
   }
 
   render() {
@@ -64,12 +79,15 @@ class Board extends Component {
     });
     
     return (
-      <div>
+      <section>
         <h1 className='board-title'> {this.props.boardName} Board </h1>
+          <NewCardForm
+            addCardCallback = {this.onAddCard}
+          />;
         <div className='board'>
           {cards}
         </div>
-      </div>
+      </section>
     )
   }
 
