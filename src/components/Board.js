@@ -8,18 +8,92 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cards: [],
+      cardsUrl: this.props.url + this.props.boardName + '/cards',
+      error: '',
     };
-  }
+
+  };
+
+  componentDidMount() {
+    axios.get(this.state.cardsUrl)
+      .then((response) => {
+        const cardObjects = response.data.map((cardInfo) => {
+          return (
+            cardInfo.card
+          )
+        })
+        this.setState({
+          cards: cardObjects
+        });
+        console.log(cardObjects)
+      })
+      .catch((error) => {
+        this.setState({
+          error: 'No Dice'
+        })
+      });
+  };
+
+  addCard = (card) => {
+    axios.post(this.state.cardsUrl, card)
+      .then((response) => {
+        const updatedCards = this.state.cards;
+        updatedCards.push(response.data.card);
+        this.setState({
+          cards: updatedCards,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
+
+  deleteCard = (cardId) => {
+
+    axios.delete(this.state.cardsUrl + `/${cardId}`)
+      .then(() => {
+        const allButOneCard = this.state.cards.filter((card) => card.id !== cardId)
+        this.setState({
+          cards: allButOneCard,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message,
+        });
+      });
+  };
+
+  cardList = () => {
+    return (
+      this.state.cards.map((card,i) => {
+        return (
+          <Card
+            key={i}
+            text={card.text}
+            emoji={card.emoji}
+            deleteCardCallback={this.deleteCard}
+
+          />
+        )
+      })
+    )
+  };
+
 
   render() {
     return (
       <div>
-        Board
+        {this.cardList()}
+        <NewCardForm
+          addCardCallback={this.addCard}
+        />
       </div>
     )
   }
