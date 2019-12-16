@@ -56,6 +56,26 @@ class Board extends Component {
 
   };
 
+   addCardCallback = (text, emoji) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/Mariya/cards`, {
+      text: text,
+      emoji: emoji
+    })
+    .then((response) => {
+        const newCard = response.data
+        let updatedCards = this.state.cards
+        updatedCards.unshift(newCard)
+
+        this.setState({
+          cards: updatedCards,
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+      this.setState({error: error.message})
+    });
+      
+  } 
 
   render() {
     const cardEntries = this.state.cards.map((cardObject, i) => {
@@ -65,9 +85,15 @@ class Board extends Component {
     });
 
     return (
-      <div>
+      <section>
+        <div>
+          <NewCardForm addCardCallback={this.addCardCallback} />
+        </div>
+        <div>
         { cardEntries }
-      </div>
+        </div>
+      </section>
+      
     )
   }
 
