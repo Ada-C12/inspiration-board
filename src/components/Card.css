@@ -42,6 +42,14 @@
 }
 
 .card__delete {
-  align-self: start;
+  visibility: hidden;
+  align-self: right;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
+  background-color: rgb(247, 250, 247);
+  padding: .2rem;
+  border: .2rem solid rgb(66, 196, 66);
+  border-radius: .5rem;
+}
+.card:hover .card__delete {
+  visibility: visible;
 }
