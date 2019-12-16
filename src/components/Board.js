@@ -30,6 +30,19 @@ class Board extends Component {
       })
   }
 
+  componentDidUpdate() {
+    axios.get(this.props.url + this.props.boardName + '/cards')
+      .then((response) => {
+        this.setState({
+          cards: response.data
+        })
+      }).catch(() => {
+        this.setState({
+          error: 'Sorry! Sth went wrong.'
+        })
+      })
+  }
+  
   addCard = (card) => {
     axios.post(this.props.url + this.props.boardName + '/cards', card)
       .then((response) => {
