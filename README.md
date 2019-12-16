@@ -80,7 +80,7 @@ Create a board for yourself, with a name that will be unique for you. This will 
 
 1. Pick your board's name. Examples include your first name, like `dee`, or your first and last name combined, like `dee-del-rosario`.
 1. Use the Inspiration Board API documentation to create a specific board with a specific board name, and how to read from that specific board name.
-1. Once you've confirmed that your specific board name works as an endpoint, open up in your project files `App.js`. In this file, find and observe the following code:
+1. Once you've confirmed that your specific board name works as an endpoint, open up in your project files `App.js`. In this file, find and observe the  following code:
     ```javascript
     <Board
           url="https://inspiration-board.herokuapp.com/boards/"
