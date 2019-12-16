@@ -32,8 +32,8 @@ class Card extends Component {
 Card.propTypes = {
   emoji: PropTypes.string,
   text: PropTypes.string,
-  id: PropTypes.number.isRequired,
-  deleteCardCallback: PropTypes.func.isRequired
+  id: PropTypes.number,
+  deleteCardCallback: PropTypes.func
 };
 
 export default Card;

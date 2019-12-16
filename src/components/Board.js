@@ -36,11 +36,12 @@ class Board extends Component {
     axios
       .delete(this.props.url + "cards/" + cardId)
       .then(response => {
-        const allCards = this.state.cards.filter(card => card.id !== cardId);
+        const allCards = this.state.cards.filter(({ card }) => {
+          return card.id !== cardId;
+        });
 
         this.setState({
-          cards: allCards,
-          error: ""
+          cards: allCards
         });
       })
       .catch(error => {
@@ -66,14 +67,17 @@ class Board extends Component {
   render() {
     const allCards = this.state.cards.map((data, i) => {
       return (
-        <Card key={i} {...data.card} deleteCardCallback={this.deleteCard} />
+        <div>
+          <div className="validation-errors-display">{this.state.errors}</div>
+          <Card key={i} {...data.card} deleteCardCallback={this.deleteCard} />
+        </div>
       );
     });
 
     return (
-      <div>
-        <NewCardForm addCardCallback={this.addCard} />
+      <div className="board">
         {allCards}
+        <NewCardForm addCardCallback={this.addCard} />
       </div>
     );
   }
