@@ -92,9 +92,9 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  key: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  emoji: PropTypes.string.isRequired,
+  // key: PropTypes.number.isRequired,
+  // text: PropTypes.string.isRequired,
+  // emoji: PropTypes.string.isRequired,
   addCardCallback: PropTypes.func,
   deleteCardCallback: PropTypes.func,
 };

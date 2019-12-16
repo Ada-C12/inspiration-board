@@ -17,9 +17,12 @@ class NewCardForm extends Component {
 
   emojiOptions = () => {
     return (
-      EMOJI_LIST.map((field) => {
+      EMOJI_LIST.map((field, i) => {
         return (
-          <option value={field}>
+          <option 
+            key={i}
+            value={field}
+          >
             {emoji.getUnicode(`${field}`)}
           </option>
         )
