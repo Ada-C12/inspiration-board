@@ -25,7 +25,7 @@ class App extends Component {
         <option key={i} value={boardName} >{boardName}</option>
       )
     })
-    console.log(this.state.boardName)
+    
     return (
       <section>
         <header className="header">
