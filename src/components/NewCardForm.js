@@ -26,11 +26,18 @@ class NewCardForm extends Component {
   }
 
   onSubmitHandler = (event) => {
-    console.log("In the submit handler!")
+    event.preventDefault();
+    if (this.state.text || this.state.emoji) {
+      this.props.addCardCallback({
+        text: this.state.text, 
+        emoji: this.state.emoji,
+      });
+
+      this.setState({text: '', emoji: '',});
+    }
   }
 
   render() {
-    console.log(this.state)
     const emojis = EMOJI_LIST.map((item, i) => {
       return <option key={i} value={item}>{emoji.getUnicode(item)}</option>
     })

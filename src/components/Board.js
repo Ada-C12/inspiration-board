@@ -39,9 +39,9 @@ class Board extends Component {
       });
   }
 
-  addCard = (text, emoji) => {
+  addCard = (card) => {
     const url = `${this.props.url}${this.props.boardName}/cards`
-    axios.post(url, { text: {text}, emoji: {emoji} })
+    axios.post(url, card)
     .then((response) => {
       const updatedCards = this.state.cards;
       updatedCards.push(response.data);
