@@ -53,8 +53,8 @@ class NewCardForm extends Component {
   }
 
   render() {
-    const emojiList = EMOJI_LIST.map((emoji) => {
-      return <option> {emojis.getUnicode(emoji)}</option>
+    const emojiList = EMOJI_LIST.map((emoji, i) => {
+      return <option key={i}> {emojis.getUnicode(emoji)}</option>
     });
 
     return (
@@ -86,5 +86,9 @@ class NewCardForm extends Component {
     )
   }
 }
+
+NewCardForm.propTypes = {
+  addCard: PropTypes.func.isRequired
+};
 
 export default NewCardForm;

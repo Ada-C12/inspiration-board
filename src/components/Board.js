@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 import Axios from 'axios';
 
 class Board extends Component {
@@ -67,11 +67,12 @@ class Board extends Component {
     
   makeCollection() {
     const emoji = require("emoji-dictionary");
-    const cardsCollection = this.state.cards.map((card) => {
+    const cardsCollection = this.state.cards.map((card, i) => {
 
       if (card.emoji) {
         const name = card.emoji
-        return < Card 
+        return < Card
+          key={i} 
           text={card.text} 
           emoji={emoji.getUnicode(name)} 
           id={card.id}
@@ -79,13 +80,15 @@ class Board extends Component {
           />
       } else if ( card.Emoji ) {
         const name = card.Emoji
-        return < Card 
+        return < Card
+          key={i} 
           text={card.text} 
           emoji={emoji.getUnicode(name)} 
           id={card.id}
           deleteCard={this.deleteCard}/>
       } else {
-        return < Card 
+        return < Card
+          key={i} 
           text={card.text}  
           id={card.id}
           deleteCard={this.deleteCard}/>
@@ -106,7 +109,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
