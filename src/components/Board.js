@@ -75,6 +75,7 @@ class Board extends Component {
     return (
       <div>
         <h1>Board</h1>
+        <h1>{this.state.error}</h1>
         <NewCardForm addCardCallback={this.addCard}/>
         {cardCollections}
       </div>
