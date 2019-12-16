@@ -29,7 +29,7 @@ const Card = (props) => {
 Card.propTypes = {
   cardText: PropTypes.number.isRequired,
   cardEmoji: PropTypes.string,
-  deleteCardCallback: PropTypes.func.isRequired
+  deleteCardCallbackAction: PropTypes.func.isRequired
 };
 
 export default Card;

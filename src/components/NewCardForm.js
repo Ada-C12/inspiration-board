@@ -15,7 +15,7 @@ class NewCardForm extends Component {
     };
   }
 
-  onInputChange = (event) => {
+  onChange = (event) => {
     const updatedState = {};
 
     const field = event.target.name;
@@ -25,11 +25,11 @@ class NewCardForm extends Component {
     this.setState(updatedState)
   }
 
-  onSubmitHandler = (event) => {
+  onSubmit = (event) => {
     event.preventDefault();
 
     if (this.state.text) {
-      this.props.addCardCallback({
+      this.props.addCardCallbackAction({
         text: this.state.text,
         emoji: this.state.emoji
       });
@@ -43,7 +43,7 @@ class NewCardForm extends Component {
 
   render() {
     return (
-      <form className='new-card-form' onSubmit={this.onSubmitHandler}>
+      <form className='new-card-form' onSubmit={this.onSubmit}>
         <h3 className='new-card-form__header'>Add a New Card</h3>
         <div>
           <label className='new-card-form__form-label' htmlFor='text'>Text: </label>
@@ -51,7 +51,7 @@ class NewCardForm extends Component {
           className='new-card-form__form-textarea'
           name='text'
           id='text'
-          onChange={this.onInputChange}
+          onChange={this.onChange}
           value={this.state.text}
           />
         </div>
@@ -61,7 +61,7 @@ class NewCardForm extends Component {
           // className='new-card-form__form-textarea'
           name='emoji'
           id='emoji'
-          onChange={this.onInputChange}
+          onChange={this.onChange}
           value={this.state.emoji}
           />
         </div>
@@ -70,7 +70,7 @@ class NewCardForm extends Component {
           type="submit"
           name="submit"
           value="Add a Card"
-          onClick={this.onSubmitHandler}
+          onClick={this.onSubmit}
         />
       </form>
     )
@@ -79,7 +79,7 @@ class NewCardForm extends Component {
 }
 
 NewCardForm.propTypes = {
-  addCardCallback: PropTypes.func.isRequired
+  addCardCallbackAction: PropTypes.func.isRequired
 };
 
 export default NewCardForm;

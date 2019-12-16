@@ -33,14 +33,14 @@ constructor(props) {
 
   }
 
-  makeCollection () {
+  makeBoardCollection () {
     const cardCollection = this.state.cards.map((card, i) => {
       return <Card 
       cardText={card.card.text}
       cardEmoji={card.card.emoji}
       id={card.card.id}
       key={i}
-      deleteCardCallback={this.deleteCard}
+      deleteCardCallbackAction={this.deleteCard}
       />
     });
     return cardCollection
@@ -86,10 +86,10 @@ constructor(props) {
       <div>
         	        
         <section className='board'>
-          {this.makeCollection()}
+          {this.makeBoardCollection()}
          </section>
          <section className='new-card-form '>
-           <NewCardForm addCardCallback={this.addCard}/>
+           <NewCardForm addCardCallbackAction={this.addCard}/>
          </section>
       </div>	 
     )
