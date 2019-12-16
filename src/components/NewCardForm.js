@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
-// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 
 class NewCardForm extends Component {
 
@@ -13,6 +13,7 @@ class NewCardForm extends Component {
     this.state = {
       id: '',
       text: '',
+      emoji: '',
     }
   }
 
@@ -32,6 +33,7 @@ class NewCardForm extends Component {
     const newCard = {
       id: this.state.id,
       text: this.state.text,
+      emoji: this.state.emoji,
     }
 
     this.props.addCardCallback(newCard);
@@ -42,7 +44,20 @@ class NewCardForm extends Component {
     });
   }
 
+  emojiMenu = () => {
+    const emojis = EMOJI_LIST.map((emojiStr, i) => {
+      return (
+        <option 
+          value={emojiStr} 
+          key={i}>{emoji.getUnicode(emojiStr)}
+        </option>
+      );
+    })
+  }
+
+
   render() {
+
     return (
       <div className="NewCardForm">
         <h3 className='new-card-form__header'>Submit Inspiration Note</h3>
@@ -58,6 +73,16 @@ class NewCardForm extends Component {
               onChange={this.onInputChange}
               value={this.state.text}
             />
+          </div>
+
+          <div className="new-card-form__form-label">
+            <input
+              name="emoji"
+              className="new-card-form__form-select"
+              onChange={this.onInputChange}
+              value={this.state.emoji}
+            />
+            {this.emojiMenu()}
           </div>
 
           <div className="NewCardForm__submit">

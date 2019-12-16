@@ -62,6 +62,7 @@ class Board extends Component {
           key = {i}
           id = {card.id}
           text = {card.text}
+          emoji = {card.emoji}
           deleteCardCallback={this.deleteCard}
         />
       )

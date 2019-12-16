@@ -10,6 +10,7 @@ class Card extends Component {
       <div className="card">
         <section className='card__content'>
           <p className='card__content-text'>{this.props.text}</p>
+          <p className="card__content-emoji">{this.props.emoji ? emoji.getUnicode(this.props.emoji) : ""}</p>
         </section>
         
         <button
@@ -25,7 +26,10 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-  // quote: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  text: PropTypes.string,
+  emoji: PropTypes.string,
+  deleteCardCallback: PropTypes.func
 };
 
 export default Card;
