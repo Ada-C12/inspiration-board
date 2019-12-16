@@ -6,11 +6,17 @@ import './Card.css';
 
 class Card extends Component {
   render() {
+    const getEmoji = () => {
+      if (this.props.emoji){
+        return emoji.getUnicode(this.props.emoji)
+      }
+    }
+    
     return (
       <div className='card'>
-        <button class="card__delete" onClick={this.props.deleteCardCallback}>
-          Delete
-        </button>
+        <div className="card__delete" onClick={this.props.deleteCardCallback}>
+        <button className="card__delete"> Delete </button>
+        </div>
         
         <section className="card__content">
             <h2 className="card__content-text">
@@ -18,7 +24,7 @@ class Card extends Component {
             </h2>
           
           <div className='card__content-emoji'>
-            {this.props.emoji}
+            {getEmoji()}
           </div>
         </section>
       </div>
