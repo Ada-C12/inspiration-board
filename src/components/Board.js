@@ -86,11 +86,13 @@ class Board extends Component {
     })
 
     return (
-      <div>
+      <div className='board'>
         <h1>Board</h1>
         <h1>{this.state.error}</h1>
-        <NewCardForm addCardCallback={this.addCard}/>
-        {cardCollections}
+        <NewCardForm addCardCallback={this.addCard} />
+        <div>
+          {cardCollections}
+        </div>
       </div>
     )
   }
