@@ -11,7 +11,16 @@ const Card = (props) => {
       <div className="card">
         {props.cardText}
         {emoji.getUnicode(`${props.cardEmoji}`)}
+        <button
+          type='button'
+          className='card__delete'
+          aria-label='Delete'
+          onClick={() => {props.deleteCardCallback(props.id)}}>
+            {console.log(props.id)}
+         Delete
+        </button>
       </div>
+     
     )
 }
   // }

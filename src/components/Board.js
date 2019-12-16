@@ -13,20 +13,21 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      error: '',
     };
   }
+  
 
   componentDidMount() {
     axios.get(`${this.props.url}/${this.props.boardName}/cards`)
       .then((response) => {
 
-        console.log(response.data)
         this.setState({
           cards: response.data
         });
       })
       .catch((error) => {
-        console.log(error.message)
+        this.setState({error: error.message});
       })
     
   }
@@ -36,17 +37,57 @@ class Board extends Component {
       return <Card 
       cardText={card.card.text}
       cardEmoji={card.card.emoji}
+      id={card.card.id}
       key={i}
+      deleteCardCallback={this.deleteCard}
       />
     });
     return cardCollection
+  }
+
+  deleteCard = (cardId) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+    .then((response) => {
+      const cards = this.state.cards.filter((card) => card.id !== cardId);
+      console.log(cards)
+  
+      this.setState({
+        cards,
+        fullList: cards
+      });
+      console.log(this.state.cards)
+    })
+    .catch((error) => {
+      this.setState({error: error.message});
+    });
+  }
+
+  addCard = (card) => {
+    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
+    .then((response) =>{
+      const updatedData = this.state.cards;
+      updatedData.push(response.data);
+      
+      this.setState({
+        cards: updatedData,
+        error: ''
+      });
+    })
+    .catch((error) => {
+      this.setState({error: error.message})
+    });
   }
 
 
   render() {
     return (
       <div>
-         {this.makeCollection()}
+        <section className='board'>
+          {this.makeCollection()}
+         </section>
+         <section className='new-card-form '>
+           <NewCardForm addCardCallback={this.addCard}/>
+         </section>
       </div>
     )
   }
