@@ -33,7 +33,7 @@ constructor(props) {
 
   }
 
-  makeBoardCollection () {
+  makeCardCollection () {
     const cardCollection = this.state.cards.map((card, i) => {
       return <Card 
       cardText={card.card.text}
@@ -86,7 +86,7 @@ constructor(props) {
       <div>
         	        
         <section className='board'>
-          {this.makeBoardCollection()}
+          {this.makeCardCollection()}
          </section>
          <section className='new-card-form '>
            <NewCardForm addCardCallbackAction={this.addCard}/>

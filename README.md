@@ -84,7 +84,7 @@ Create a board for yourself, with a name that will be unique for you. This will 
     ```javascript
     <Board
           url="https://inspiration-board.herokuapp.com/boards/"
-          boardName={`Ada-Lovelace`}
+          boardName={`morgan`}
           />
     ```
 1. Replace the value of `boardName` with your unique board name.

@@ -17,7 +17,7 @@ const Card = (props) => {
     type='button'
     className='card__delete'
     aria-label='Delete'
-    onClick={() => {props.deleteCardCallback(props.id)}}>
+    onClick={() => {props.deleteCardCallbackAction(props.id)}}>
       {console.log(props.id)}
   Delete
         </button>
@@ -27,7 +27,7 @@ const Card = (props) => {
   }
 
 Card.propTypes = {
-  cardText: PropTypes.number.isRequired,
+  cardText: PropTypes.string.isRequired,
   cardEmoji: PropTypes.string,
   deleteCardCallbackAction: PropTypes.func.isRequired
 };
