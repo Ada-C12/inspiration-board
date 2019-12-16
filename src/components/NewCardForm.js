@@ -34,6 +34,7 @@ class NewCardForm extends React.Component {
       <div>
         <h1 className="new-card-form__header">{this.props.text}</h1>
         <form className="new-card-form__form">
+          <label>Text</label>
           <input
             className="new-card-form__form-textarea"
             placeholder="Text"
@@ -41,9 +42,10 @@ class NewCardForm extends React.Component {
             value={this.state.text}
             onChange={this.handleTextChange}
           />
-          <select>
+          <label>Emoji</label>
+          <select value={this.state.emoji} onChange={this.handleEmojiChange}>
             {EMOJI_LIST.map(v => {
-              return <option value="{v}">{emoji.getUnicode(v)}</option>;
+              return <option value={v}>{emoji.getUnicode(v)}</option>;
             })}
           </select>
 
