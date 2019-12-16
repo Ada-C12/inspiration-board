@@ -17,7 +17,7 @@ class Board extends Component {
       error: '',
     };
 
-  }
+  };
 
   componentDidMount() {
     axios.get(this.state.cardsUrl)
@@ -37,25 +37,38 @@ class Board extends Component {
           error: 'No Dice'
         })
       });
-  }
+  };
 
-  
+  addCard = (card) => {
+    axios.post(this.state.cardsUrl, card)
+      .then((response) => {
+        const updatedCards = this.state.cards;
+        updatedCards.push(response.data.card);
+        this.setState({
+          cards: updatedCards,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
 
   deleteCard = (cardId) => {
 
     axios.delete(this.state.cardsUrl + `/${cardId}`)
-    .then(() => {
-      const allButOneCard = this.state.cards.filter((card) => card.id !==cardId)
-      this.setState({
-        cards: allButOneCard,
+      .then(() => {
+        const allButOneCard = this.state.cards.filter((card) => card.id !== cardId)
+        this.setState({
+          cards: allButOneCard,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message,
+        });
       });
-    })
-    .catch((error) => {
-      this.setState({
-        error: error.message,
-      });
-    });
-  }
+  };
 
   cardList = () => {
     return (
@@ -71,13 +84,16 @@ class Board extends Component {
         )
       })
     )
-  }
+  };
 
 
   render() {
     return (
       <div>
         {this.cardList()}
+        <NewCardForm
+          addCardCallback={this.addCard}
+        />
       </div>
     )
   }
