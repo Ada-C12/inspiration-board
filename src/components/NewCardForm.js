@@ -46,7 +46,8 @@ class NewCardForm extends Component {
     return (
       <div className='new-card-form '>
         <h1 className='new-card-form__header'>New Card Form</h1>
-        <form className='new-card-form__form ' onSubmit={this.onSubmit}>
+        <form className='new-card-form__form ' 
+              onSubmit={this.onSubmit}>
 
         <div className='new-card-form__form-label'>Text
           <input type='text'

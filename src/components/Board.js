@@ -16,12 +16,34 @@ class Board extends Component {
     };
   }
 
+  componentDidMount() {
+    axios.get(`${this.props.url}${this.props.boardName}/cards`)
+    .then((response) => {
+      const cards = [];
+      response.data.forEach((card) => {
+        cards.push({
+          text: card.card.text,
+          emoji: card.card.emoji,
+          id: card.card.id
+        })
+      });
+      this.setState({
+        cards,
+      });
+    })
+    .catch((response) => {
+      this.setState({
+        message: `${response.data}`,
+      })
+    })
+  }
+
   cardList = () => {
     return this.state.cards.map((card, i) => {
-      return <Card
+      return (<Card
               key={i}
               deleteCardCallback={this.deleteCard}
-              {...card} />
+              {...card} />)
     })
   }
   
