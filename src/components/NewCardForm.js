@@ -42,8 +42,8 @@ class NewCardForm extends Component {
   }
 
   render () {
-    const emojiOptions = EMOJI_LIST.map((icon) => {
-        return <option value={icon}>{emoji.getUnicode(icon)}</option>
+    const emojiOptions = EMOJI_LIST.map((icon, i) => {
+        return <option value={icon} key={i}>{emoji.getUnicode(icon)}</option>
       });
     
     
