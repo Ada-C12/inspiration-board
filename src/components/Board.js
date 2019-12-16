@@ -5,7 +5,6 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor(props) {
@@ -17,9 +16,10 @@ class Board extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.listCards()
   }
+
 
   listCards() {
     axios.get(`${this.props.url}${this.props.boardName}/cards`)
@@ -39,7 +39,6 @@ class Board extends Component {
       });
   }
 
-
   onRemoveCard = (id) => {
     axios.delete(` https://inspiration-board.herokuapp.com/cards/${id}`)
       .then((response) => {
@@ -53,8 +52,6 @@ class Board extends Component {
   }
 
   onAddCard = (card) => {
-    console.log(card)
-
     axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
       .then((response) => {
         this.listCards()
@@ -64,13 +61,12 @@ class Board extends Component {
           error: 'Sorry, something went wrong'
         });
       });
-
-
   }
 
   render() {
-    const cards = this.state.cards.map((card) => {
+    const cards = this.state.cards.map((card, i) => {
       return <Card
+              key={i}
               id={card.id}
               text={card.text}
               emoji={card.emoji}
@@ -95,7 +91,7 @@ class Board extends Component {
 
 Board.propTypes = {
   url: PropTypes.string.isRequired,
-  boardName: PropTypes.object.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
