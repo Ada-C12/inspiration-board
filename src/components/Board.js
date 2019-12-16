@@ -47,6 +47,23 @@ class Board extends Component {
         this.setState({ error: error.message });
       });
   };
+
+  addCard = (card) => {
+    const myCards = `${this.props.url+this.props.boardName}/cards`
+
+    axios.post(myCards, card)
+      .then((response) => {
+        const updatedData = this.state.cards;
+        updatedData.push(response.data.card);
+        this.setState({
+          cards: updatedData,
+          error: ''
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
     
   makeCollection() {
     const emoji = require("emoji-dictionary");
@@ -79,14 +96,13 @@ class Board extends Component {
   } 
 
   render() {
-    console.log("a")
     return (
       <div className="board">
         {this.makeCollection()}
+        <NewCardForm addCard={this.addCard}/>
       </div>
     )
   }
-
 }
 
 Board.propTypes = {
