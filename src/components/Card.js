@@ -9,16 +9,18 @@ import './Card.css';
 const Card = (props) => {
     return (
       <div className="card">
-        {props.cardText}
-        {emoji.getUnicode(`${props.cardEmoji}`)}
-        <button
-          type='button'
-          className='card__delete'
-          aria-label='Delete'
-          onClick={() => {props.deleteCardCallback(props.id)}}>
-            {console.log(props.id)}
-         Delete
-        </button>
+        <section className='card__content'>
+          <section className='card__content-text' >{props.cardText} </section>
+          <section className='card__content-emoji'>{emoji.getUnicode(`${props.cardEmoji}`)}</section>
+          <button
+            type='button'
+            className='card__delete'
+            aria-label='Delete'
+            onClick={() => {props.deleteCardCallback(props.id)}}>
+              {console.log(props.id)}
+          Delete
+          </button>
+        </section>
       </div>
      
     )
@@ -27,7 +29,9 @@ const Card = (props) => {
 // }
 
 Card.propTypes = {
-
+  cardText: PropTypes.string.isRequired,
+  cardEmoji: PropTypes.string,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;
