@@ -74,7 +74,7 @@ class Board extends Component {
 
   render() {
     return (
-      <main>
+      <div className="board">
         <section className="">
           <NewCardForm 
             addCardCallback={this.addCard}
@@ -83,9 +83,10 @@ class Board extends Component {
 
         <section>
           {this.allCards()}
+          <p className="validation-errors-display">{this.state.error}</p>
         </section>
 
-      </main>
+      </div>
     )
   }
 

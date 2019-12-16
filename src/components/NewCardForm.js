@@ -59,15 +59,16 @@ class NewCardForm extends Component {
 
   render() {
     return (
-      <div>
-        <h3>New Card</h3>
+      <div className="new-card-form">
+        <h3 className="new-card-form__header">New Card</h3>
         <form
-          className=""
+          className="new-card-form__form"
           onSubmit={this.onSubmitCard}
         >
           <div>
-            <label className="">Text:</label>
+            <label className="new-card-form__form-label">Text:</label>
             <input
+              className="new-card-form__form-textarea"
               name="text"
               id="text"
               onChange={this.onInputChange}
@@ -75,8 +76,9 @@ class NewCardForm extends Component {
             />
           </div>
           <div>
-            <label className="">Emoji:</label>
+            <label>Emoji:</label>
             <select
+              className="new-card-form__form-select"
               name="emoji"
               id="emoji"
               onChange={this.onInputChange}
@@ -86,7 +88,7 @@ class NewCardForm extends Component {
             </select>
           </div>
           <input
-            className=""
+            className="new-card-form__form-button"
             type="submit"
             name="submit"
             value="Add a Card"

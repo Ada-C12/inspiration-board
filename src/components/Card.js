@@ -8,15 +8,17 @@ const Card = (props) => {
 
   return (
     <div className="card">
-      {props.text}
-      {emoji.getUnicode(`${props.emoji}`)}
-      <button
-        type="button"
-        className=""
-        onClick={props.deleteCardCallback}
-      >
-        Delete Card
-      </button>
+      <div className="card__content">
+        <p className="card__content-text">{props.text}</p>
+        <p className="card__content-emoji">{emoji.getUnicode(`${props.emoji}`)}</p>
+        <button
+          type="button"
+          className="card__delete"
+          onClick={props.deleteCardCallback}
+        >
+          Delete Card
+        </button>
+      </div>
     </div>
   );
 };
