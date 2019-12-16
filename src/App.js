@@ -3,8 +3,6 @@ import './App.css';
 import Board from './components/Board';
 import NewCardForm from './components/NewCardForm';
 
-import axios from 'axios';
-
 class App extends Component {
 
   constructor(props) {
@@ -12,8 +10,7 @@ class App extends Component {
     this.state = {
       url: "https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards",
       name: "c-gutierrez",
-      cardList: [],
-      error: ''
+
     }
   };
 
@@ -27,16 +24,6 @@ class App extends Component {
 
 
 
-  // componentDidMount() {
-  //   axios.get('https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards')
-  //   .then((response) => {
-  //     this.setState({
-  //       cardList: response.data})
-  //   })
-  //   .catch((error) => { 
-  //   this.setState ({error: error.message})
-  //   });
-  // }
 
 
 
@@ -48,10 +35,9 @@ class App extends Component {
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
         </header>
-        {console.log(this.state.response)} 
         <Board
           boardName={this.state.name}
-          // cards={this.state.cardList}
+          url={this.state.url}
           />
 
 

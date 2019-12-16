@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 
 import './Board.css';
 import Card from './Card';
@@ -13,27 +13,49 @@ class Board extends Component {
 
     this.state = {
       boardName: props.boardName,
-      cards: CARD_DATA.cards,
-      // cards: [props.cards],
+      url: props.url,
+      // cards: CARD_DATA.cards, // built for hard-coded json, needs different parsin for API
+      cardList: [],
+      error: ''
     };
   }
 
-    parseCards = (cards) => {
+  componentDidMount() {
+    axios.get('https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards')
+    .then((response) => {
+      this.setState({
+        cardList: response.data})
+    })
+    .catch((error) => { 
+    this.setState ({error: error.message})
+    });
+  }
+
+  parseCards = (cards) => {
+    if (cards == undefined) {return ''}
+    else {
       return cards.map((card) => {
-        return <Card text={card.text} emoji={card.emoji}/>
-        }
-      )
+        // return <Card text={card.text} emoji={card.emoji}/>
+        // } // built for card-coded json. Needs different parsing for API
+        return <Card text={card.card.text} emoji={card.emoji}/>
+      })
     }
+  }
 
   render() {
-    return (
-      <div>
-        <h3>Board</h3>
+    if (this.state.cardList === []) {
+      return ""
+    }
+    else {
+      return (
         <div>
-        {this.parseCards(this.state.cards)}
+          <h3>Board</h3>
+          <div>
+          {this.parseCards(this.state.cardList)}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
 }
