@@ -18,7 +18,7 @@ class Board extends Component {
   }
 
   addCard = (card) => {
-    axios.post(`${this.props.url}/${this.props.boardName}/cards`, card)
+    axios.post(`${this.props.url}/boards/${this.props.boardName}/cards`, card)
       .then((response) => {
         const updatedData = this.state.cards;
         updatedData.push(response.data.card);
@@ -34,17 +34,24 @@ class Board extends Component {
 
   deleteCard = (id) => {
     axios.delete(`${this.props.url}/cards/${id}`)
-      .then((response) => {
+      .then(() => {
         console.log(`deleted ${id}`);
-        //find card deleted and remove from state 
-      })
+  
+        const updatedCards = this.state.cards.filter((card) => card.id !== id);
+      
+        this.setState({
+          cards: updatedCards,
+          error: ''
+        });
+            })
       .catch((error) => {
         this.setState({ error: error.message });
       });
   }
 
+
+
   componentDidMount() {
-    console.log('hi');
   axios.get(`${this.props.url}/boards/${this.props.boardName}/cards`)
   .then((response) => {
     
@@ -65,19 +72,22 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
-        <NewCardForm addCardCallback={this.addCard}/>
+        
+          {this.state.cards.map((card) => {
+            return(
+              <Card 
+                text={(card.text) ? card.text : ""}
+                emoji={(card.emoji) ? card.emoji : ""}
+                id={card.id}
+                key={card.id}
+                deleteCardCallback={this.deleteCard}
+              />
+            );
+          })
+          }
+      
+      <NewCardForm addCardCallback={this.addCard}/>
 
-        {this.state.cards.map((card) => {
-          return(
-            <Card 
-              text={(card.text) ? card.text : ""}
-              emoji={(card.emoji) ? card.emoji : ""}
-              id={card.id}
-              deleteCardCallback={this.deleteCard}
-            />
-          );
-        })
-        }
       </div>
     );
   }
