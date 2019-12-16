@@ -47,7 +47,7 @@ class Board extends Component {
     axios.post(`https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`, newCard)
     .then((response) => {
       const updatedCards = this.state.cards
-      updatedCards.push(response.data.newCard)
+      updatedCards.push(response.data)
       this.setState({cards: updatedCards})
     })
     .catch((error) => {
@@ -60,6 +60,7 @@ class Board extends Component {
       return (
         <Card
           key = {i}
+          id = {card.id}
           text = {card.text}
           deleteCardCallback={this.deleteCard}
         />

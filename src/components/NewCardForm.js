@@ -11,6 +11,7 @@ class NewCardForm extends Component {
     super(props);
 
     this.state = {
+      id: '',
       text: '',
     }
   }
@@ -28,11 +29,15 @@ class NewCardForm extends Component {
   onSubmitCard = (event) => {
     event.preventDefault();
     
-    const newCard = {text: this.state.text}
+    const newCard = {
+      id: this.state.id,
+      text: this.state.text,
+    }
 
     this.props.addCardCallback(newCard);
 
     this.setState({
+      id: '',
       text: '',
     });
   }
