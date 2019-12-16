@@ -48,7 +48,7 @@ class Board extends Component {
   deleteCard = (cardId) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
     .then((response) => {
-      const cards = this.state.cards.filter((card) => card.id !== cardId);
+      const cards = this.state.cards.filter((card) => card.card.id !== cardId);
       console.log(cards)
   
       this.setState({
@@ -75,7 +75,7 @@ class Board extends Component {
     })
     .catch((error) => {
       this.setState({error: error.message})
-    });
+    })
   }
 
 
