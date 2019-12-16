@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It will render the proper text for the card 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <p
+      class="card__content-text"
+    >
+      You can do it! 
+    </p>
+    <p
+      class="card__content-emoji"
+    >
+      😍
+    </p>
+    <button
+      class="card__delete"
+    >
+      Delete
+    </button>
+  </div>
+</DocumentFragment>
+`;
