@@ -39,6 +39,22 @@ class Board extends Component {
       });
   }
 
+  addCard = (text, emoji) => {
+    const url = `${this.props.url}${this.props.boardName}/cards`
+    axios.post(url, { text: {text}, emoji: {emoji} })
+    .then((response) => {
+      const updatedCards = this.state.cards;
+      updatedCards.push(response.data);
+      this.setState({
+        cards: updatedCards,
+        error: ''
+      });
+    })
+    .catch((error) => {
+      this.setState({error: error.message});
+    })
+  }
+
   render() {
     const makeCards = (cards) => {
       return cards.map ((card, i) => {
@@ -55,6 +71,7 @@ class Board extends Component {
     return (
       <div className="board">
         {this.state.error ? <p className="validation-errors-display">Error occurred: {this.state.error}</p> : ""}
+        <NewCardForm addCardCallback={this.addCard}/>
         {this.state.cards.length > 0 ? makeCards(this.state.cards) : ""}
       </div>
     )
