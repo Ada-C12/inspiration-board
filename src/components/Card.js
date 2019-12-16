@@ -27,6 +27,7 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   emoji: PropTypes.string.isRequired,
+  deleteCardCallback: PropTypes.func,
 };
 
 export default Card;

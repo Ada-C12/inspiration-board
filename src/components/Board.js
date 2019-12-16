@@ -95,7 +95,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  addCardCallback: PropTypes.func,
+  deleteCardCallback: PropTypes.func,
 };
 
 export default Board;
