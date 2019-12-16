@@ -39,7 +39,21 @@ class Board extends Component {
     });
   }
 
-  deleteCard= (cardId) => {
+  addCard = (card) => {
+    console.log(card)
+
+    axios.post(`https://inspiration-board.herokuapp.com/boards/v-board/cards`, card)
+
+    .then((response) => {
+      this.listCards()
+    })
+
+    .catch((error) => {
+      this.setState({ error: error.message})
+    })
+  }
+
+  deleteCard = (cardId) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
 
     .then((response) => {
@@ -64,12 +78,18 @@ class Board extends Component {
             />;
       });
     return (
-      <div>
-        Board
-        <div className='board'>
-          {cards}
+      <section>
+        <NewCardForm
+          addCardCallback = {this.addCard}
+        />
+
+        <div>
+          Board
+          <div className='board'>
+            {cards}
+          </div>
         </div>
-      </div>
+      </section>
     )
   }
 }
