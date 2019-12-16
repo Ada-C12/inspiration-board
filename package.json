@@ -7,7 +7,7 @@
     "emoji-dictionary": "^1.0.10",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,6 +24,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/react": "^9.4.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "gh-pages": "^2.0.1"
