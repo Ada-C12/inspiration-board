@@ -94,8 +94,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  // url: PropTypes.string.isRequired,
-  // boardName: PropTypes.isRequired,
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.object.isRequired,
 };
 
 export default Board;
