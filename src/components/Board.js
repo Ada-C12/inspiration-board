@@ -80,10 +80,10 @@ class Board extends Component {
     
     return (
       <section>
-        <h1 className='board-title'> {this.props.boardName} Board </h1>
           <NewCardForm
             addCardCallback = {this.onAddCard}
           />;
+          <h1 className='header__h1'> {this.props.boardName} Board </h1>
         <div className='board'>
           {cards}
         </div>

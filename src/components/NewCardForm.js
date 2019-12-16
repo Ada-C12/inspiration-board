@@ -51,42 +51,35 @@ class NewCardForm extends Component {
       <section className='new-card-form'>
         <h2 className='new-card-form__header'> Add A New Card</h2>
         
-        <form onSubmit={this.onSubmit} name="new-card-form">
-          <div>
+        <form className='new-card-form__form' onSubmit={this.onSubmit} name="new-card-form">
             <label 
-              className="new-card-form__form-label" 
+              className="new-card-form__form-label"
               htmlFor="text">Text: 
             </label>
             <input 
+              className="new-card-form__form new-card-form__form-textarea"
               name="text" 
               placeholder="You are amazing :)" 
               onChange={this.onFormChange} 
               value={this.state.text} 
             />
-          </div>
 
-          <div>
-            <label 
-              className="new-card-form__form-label" 
+            <label
+              className="new-card-form__form-label"
               htmlFor="emoji"
             > Emoji:
             </label>
 
             <select
+              className="new-card-form__form new-card-form__form-select"
               name="emoji"
               onChange={this.onFormChange}
               value={this.state.emoji}
             >
               {emojiOptions}
             </select>
-          </div>
-          
-          <div>
-            <input type="submit" value="submit" />
-          </div>
 
-        
-        
+            <input className= 'new-card-form__form-button' type="submit" value="submit" />        
         </form>
       </section>
     );

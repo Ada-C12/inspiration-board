@@ -4,6 +4,9 @@
   width: 50%;
   margin: auto;
   padding-bottom: 4rem;
+  border: 1px solid grey;
+  padding-left:  4rem;
+  padding-right:  4rem;
 }
 
 .new-card-form__header {
@@ -37,4 +40,9 @@
   background-color: inherit;
   border: 1px solid black;
   font-size: 1em;
+}
+
+.new-card-form__form-button:hover {
+  background-color:black;
+  color:white;
 }
