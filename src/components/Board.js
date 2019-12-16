@@ -71,7 +71,7 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
+      <div className='board'>
         <p>{this.state.error}</p>
         <NewCardForm addCardCallback={this.addCard}/>
         {this.displayAllCards()}

@@ -45,22 +45,23 @@ class NewCardForm extends Component {
   render() {
     return (
       <div className="NewCardForm">
-        <h3>Submit Inspiration Note</h3>
+        <h3 className='new-card-form__header'>Submit Inspiration Note</h3>
 
-        <form className="NewCardForm__form" onSubmit={this.onSubmitCard}>
+        <form className="new-card-form__form" onSubmit={this.onSubmitCard}>
 
-          <div className="NewCardForm__note-input">
+          <div className="new-card-form__form-label">
             <input
               name="text"
               placeholder="Inspirational note here"
               type="text" 
+              className="new-card-form__form-textarea"
               onChange={this.onInputChange}
               value={this.state.text}
             />
           </div>
 
           <div className="NewCardForm__submit">
-            <input type="submit" value="Submit Note" className="NewCardForm__submit-btn" />
+            <input type="submit" value="Submit Note" className="new-card-form__form-button" />
           </div>
         </form>
       </div>

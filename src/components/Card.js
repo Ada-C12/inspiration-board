@@ -8,12 +8,16 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        <p>{this.props.text}</p>
+        <section className='card__content'>
+          <p className='card__content-text'>{this.props.text}</p>
+        </section>
+        
         <button
           type="button"
-          className="btn btn-danger card--delete-btn"
+          className="card__delete"
           aria-label="Delete"
           onClick={() => {this.props.deleteCardCallback(this.props.id)}}
+          
         >Delete</button>
       </div>
     )
