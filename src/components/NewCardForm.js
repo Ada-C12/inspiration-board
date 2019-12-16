@@ -52,7 +52,7 @@ class NewCardForm extends Component {
           <label htmlFor="text">Text: </label>
           <input
             name="text"
-            value={this.state.text}
+            value={this.state.text} 
             onChange={this.onTextChange}
           />
         </div>

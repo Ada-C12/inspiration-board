@@ -47,7 +47,7 @@ class Board extends Component {
   deleteCard = (id) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
       .then((response) => {
-        const updatedBoard = this.state.board.filter((card) => card.id !== id);
+        const updatedBoard = this.state.board.filter((card) => card.card.id !== id);
         this.setState({
           board: updatedBoard,
         });
@@ -61,8 +61,16 @@ class Board extends Component {
   addCard = (card) =>{
     axios.post(this.state.url+this.state.boardName+'/cards', card)
       .then((response) => {
+        console.log(response)
         const { board } = this.state;
-        board.push(response);
+        const newCard = {
+          "card": {
+            "id": response.id,
+            "text": response.text,
+            "emoji": response.emoji
+          }
+        }
+        board.push(newCard);
         this.setState(board);
         console.log('did post')
       })
