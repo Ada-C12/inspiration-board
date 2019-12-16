@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Board from './components/Board';
 import NewCardForm from './components/NewCardForm';
+import axios from 'axios';
 
 class App extends Component {
 
@@ -10,23 +11,57 @@ class App extends Component {
     this.state = {
       url: "https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards",
       name: "c-gutierrez",
-
+      cardList: []
     }
   };
 
-  // will have a callback function passed into NewCard form, that will lead to the creation of a new card which will be used to do an API call for the post request to add this to the board. 
+  componentDidMount() {
+    axios.get(`https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards`)
+    .then((response) => {
+      this.setState({
+        cardList: response.data})
+    })
+    .catch((error) => { 
+    this.setState ({error: error.message})
+    });
+  }
 
-  // Pass forward callback function to create a new card
+  addNewCard = (card) => {
+    axios.post('https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards', card)
+    .then((response) => {
+      const updatedData = this.state.cardList
+      updatedData.push(response.data);
+      this.setState({
+        cardList: updatedData,
+        error: ''});
+      })
+      .catch((error) => {
+        this.setState({error: error.message})
+      })
+  }
 
-  // axios call here to get a list of cards for a given board
+  deleteCard = (id) => {
+    // this portion of the method updates the local list of active cards
+    const allCards = this.state.cardList
+    let filtered = []
+    console.log(this.state.cardList)
+    allCards.forEach ((card) => {
+      if (card.card.id != id) {
+      filtered.push(card)
+      }
+    })
+    this.setState({cardList: filtered}) 
 
-  // axios call here to post a new card for a given board
-
-
-
-
-
-
+    //this portion of the method updates the database through an API call
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/:card_id/${id}`)
+    .then((response) => {
+      this.setState({
+        cardList: response.data})
+    })
+    .catch(() => { 
+    this.setState ({error: "Something went wrong. "})
+    });    
+  }
 
   render() {
     return (
@@ -38,10 +73,11 @@ class App extends Component {
         <Board
           boardName={this.state.name}
           url={this.state.url}
+          cardList={this.state.cardList}
+          deleteCardCallback={(id) => this.deleteCard(id)}
           />
-
-
-        <NewCardForm/>
+        <NewCardForm
+        onAddCardCallback={(card) => this.addNewCard(card)}/>
 
       </section>
     );

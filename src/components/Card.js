@@ -15,7 +15,6 @@ class Card extends Component {
       emoji: emoji.getUnicode(`${props.emoji}`),
       removed: false,
       deletion: props.onDeleteCardCallback,
-
     }
   }
 

@@ -7,20 +7,77 @@ import './NewCardForm.css';
 const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 
 class NewCardForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state= {
+        text: '', 
+        emoji: '',
+        onAddCardCallback: props.onAddCardCallback}
+    };
 
-// set up statements, this will need state to keep track of the elements entered into the form
+  onTextChange = (event) => {
+    const text = event.target.value
+    this.setState({text})
 
-// this will have a render section that actually gathers those elements
-//  The emoji list will be used as a drop-down menu to add something
-// On submit, this form will be called back to...Board. 
-// in prop types at the bottom, it should be expecting a callback function to App
+  }
+
+  onEmojiChange = (event) => {
+    const emoji = event.target.value
+    this.setState({emoji})
+  }
+
+  onSubmitHandler = (event) => {
+    event.preventDefault();
+      this.state.onAddCardCallback({text: this.state.text,
+        emoji: this.state.emoji,
+      })
+      this.setState({
+        text: '', 
+        emoji: ''})
+    // }
+  }
+
+  emojiOptions = (options) => {
+    options.map((option, i) =>
+    {
+      return (
+        <option value={option}>{`${option}`}</option>
+      )
+    })
+  }
+
   render() {
     return (
-    <div>
-      <p>I will be a new form one day </p>
-      </div> 
+    <form className="new-card-form__header" onSubmit={this.onSubmitHandler}>
+      
+      <h3>Add a new card</h3>
+
+      <div>
+        <label className ="new-card-form__form-label"> Text: </label>
+        <input name="text"
+        id="text"
+        onChange={this.onTextChange}
+        value={this.state.text}/>
+      </div>
+
+      <div>
+        <label className ="new-card-form__form-select"> Emoji: </label>
+        <select name="emoji"
+          id="emoji"
+          onChange={this.onEmojiChange}
+          value={this.state.emoji}
+          data={this.emojiOptions(EMOJI_LIST)}
+          >
+        </select>
+      </div>
+        <button
+          className="new-card-form__form-button" 
+          type="submit"
+          value="submit"
+          onClick={this.onSubmitHandler}>Submit</button>
+    </form>
     )
-    
   }
 }
+
 export default NewCardForm;

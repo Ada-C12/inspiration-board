@@ -1,65 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-
 import './Board.css';
 import Card from './Card';
+
 // import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
-class Board extends Component {
-  constructor(props) {
-    super(props);
+// class Board  Component {
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      boardName: props.boardName,
-      url: props.url,
-      // cards: CARD_DATA.cards, // built for hard-coded json, needs different parsin for API
-      cardList: [],
-      error: '',
+  //   this.state = {
+  //     boardName: props.boardName,
+  //     url: props.url,
+  //     // cards: CARD_DATA.cards, // built for hard-coded json, needs different parsin for API
+  //     cardList: props.cardList,
+  //     error: '',
       
-    };
-  }
+  //   };
+  // }
 
-  componentDidMount() {
-    axios.get('https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards')
-    .then((response) => {
-      this.setState({
-        cardList: response.data})
-    })
-    .catch((error) => { 
-    this.setState ({error: error.message})
-    });
-  }
+  // deleteCard = () => {this.props.deleteCardCallback()}
 
-  deleteCard = (id) => {
-    // this portion of the method updates the local list of active cards
-    const allCards = this.state.cardList
-    let filtered = []
-    console.log(this.state.cardList)
-    allCards.forEach ((card) => {
-      if (card.card.id != id) {
-      filtered.push(card)
-      }
-    })
-    this.setState({cardList: filtered}) 
-
-    //this portion of the method updates the database through an API call
-    axios.delete(`https://inspiration-board.herokuapp.com/cards/:card_id/${id}`)
-    .then((response) => {
-      this.setState({
-        cardList: response.data})
-    })
-    .catch(() => { 
-    this.setState ({error: "Something went wrong. "})
-    });
-    
-  }
-
-  parseCards = (cards) => {
-    if (cards == undefined) {return ''}
+  const parseCards = (cardList, deleteCardCallback) => {
+    if (cardList === undefined) {return ''}
     else {
-      return cards.map((card) => {
+      return cardList.map((card) => {
         // return <Card text={card.text} emoji={card.emoji}/>
         // } // built for card-coded json. Needs different parsing for API
         return (
@@ -68,31 +34,33 @@ class Board extends Component {
             id={card.card.id}
             text={card.card.text}
             emoji={card.card.emoji}
-            onDeleteCardCallback={this.deleteCard}/>)
+            deleteCardCallback={deleteCardCallback}/>
+        )
       })
     }
   }
 
-  render() {
-    if (this.state.cardList === []) {
-      return ""
+  const Board = ({cardList, deleteCardCallback}) => {
+    if (cardList === []) {
+      return <div>'' </div>
     }
     else {
       return (
         <div>
           <h3>Board</h3>
           <div>
-          {this.parseCards(this.state.cardList)}
+          {parseCards(cardList, deleteCardCallback)}
           </div>
         </div>
       )
     }
   }
 
-}
+
 
 Board.propTypes = {
-
+  cards: PropTypes.array.isRequired,
+  deleteCardCallback: PropTypes.func
 };
 
 export default Board;
