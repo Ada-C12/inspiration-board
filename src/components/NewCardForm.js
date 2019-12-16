@@ -53,6 +53,8 @@ constructor(props) {
           })
   
         return(
+          <div> 
+          <h1 className="new-card-form__header"> Add a Card </h1> 
             <form className="new-card-form" onSubmit={this.onSubmit}>
             <label className="new-card-form__form-label" htmlFor="text">Text: </label>
             <input
@@ -82,8 +84,13 @@ constructor(props) {
         />
           
           </form>
+          </div>
         )
     }
 }
+NewCardForm.propTypes = {
+  addCardCallback: PropTypes.func
+
+};
 
 export default NewCardForm

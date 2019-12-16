@@ -76,7 +76,9 @@ class Board extends Component {
        {cardComponents}
        
       </div>
+      <p className="validation-errors-display"> {this.state.error} </p>
       <div>
+      
       <NewCardForm addCardCallback={this.addCard}></NewCardForm>
       </div>
     </div> 
@@ -87,6 +89,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 
 };
 
