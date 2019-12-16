@@ -8,7 +8,7 @@ class Card extends Component {
   render() {
     return (
       <div className='card'>
-        <button type="button" class="card__delete">
+        <button class="card__delete" onClick={this.props.deleteCardCallback}>
           Delete
         </button>
         
@@ -27,7 +27,7 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-
+  
 };
 
 export default Card;

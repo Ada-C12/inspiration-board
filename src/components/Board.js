@@ -18,6 +18,10 @@ class Board extends Component {
   }
 
   componentDidMount() {
+    this.listCards()
+  }
+
+  listCards() {
     axios.get(`${this.props.url}${this.props.boardName}/cards`)
       .then((response) => {
         const cards = response.data.map((obj) => {
@@ -27,7 +31,6 @@ class Board extends Component {
         this.setState({
           cards: cards
         });
-        console.log(this.state.cards)
       })
       .catch((error) => {
         this.setState({
@@ -36,12 +39,27 @@ class Board extends Component {
       });
   }
 
+
+  onRemoveCard = (id) => {
+    console.log(`i got here! ${id}`)
+    axios.delete(` https://inspiration-board.herokuapp.com/cards/${id}`)
+      .then((response) => {
+        this.listCards()
+      })  
+      .catch((error) => {
+        this.setState({
+          error: 'Sorry, something went wrong'
+        });
+      });
+  }
+
   render() {
-    const cards = this.state.cards.map((card, i) => {
+    const cards = this.state.cards.map((card) => {
       return <Card
               id={card.id}
               text={card.text}
               emoji={card.emoji}
+              deleteCardCallback = {() => {this.onRemoveCard(card.id)}}
             />;
     });
     
