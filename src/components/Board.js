@@ -31,23 +31,23 @@ class Board extends Component {
   }
   
   makeCards () {  
-    const cardCollection = this.state.cards.map((card, i) => {
+    let cardCollection = this.state.cards.map((card, i) => {
       return <Card 
         key={i}
+        id={card.card.id}
         text={card.card.text}
         cardEmoji={card.card.emoji}
-        deleteCardCallback={this.deleteCard}
+        deleteCardCallback={cardId => this.deleteCard(cardId)}
       />;
     });
     return cardCollection
   }
 
   deleteCard = (cardId) => {
-     axios.delete('https://inspiration-board.herokuapp.com/cards', cardId)
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
     .then((response) => {
-      console.log(response.data);
-      const { cards } = this.state;
-      cards.filter(card => card.id !== cardId)
+      let { cards } = this.state;
+      cards = cards.filter(card => card.card.id !== cardId)
       this.setState({
         cards,
         error: undefined,
@@ -55,10 +55,10 @@ class Board extends Component {
     })
     .catch((error) => {
       this.setState({
-        error: error.message,
-      })
-    })
-  }
+        error: error.cause,
+      });
+    });
+   };
 
   addCard = (card) => {
     axios.post('https://inspiration-board.herokuapp.com/boards/takenote/cards', card)
@@ -80,7 +80,7 @@ class Board extends Component {
   
   render() {
     return (
-      <div class="board">
+      <div className="board">
           {this.makeCards()}
           <NewCardForm addCardCallback={this.addCard}/>
       </div>
