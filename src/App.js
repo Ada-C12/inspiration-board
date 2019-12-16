@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       url: "https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards",
       name: "c-gutierrez",
-      cardList: []
+      cardList: [],
+      error: ''
     }
   };
 
@@ -29,8 +30,8 @@ class App extends Component {
   addNewCard = (card) => {
     axios.post('https://inspiration-board.herokuapp.com/boards/c-gutierrez/cards', card)
     .then((response) => {
-      const updatedData = this.state.cardList
-      updatedData.push(response.data);
+      const updatedData = this.state.cardList;
+      updatedData.unshift(response.data);
       this.setState({
         cardList: updatedData,
         error: ''});
