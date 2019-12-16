@@ -71,7 +71,7 @@ class App extends Component {
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
         </header>
-        <Board
+        <Boardgit s
           boardName={this.state.name}
           url={this.state.url}
           cardList={this.state.cardList}
