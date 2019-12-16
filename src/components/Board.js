@@ -25,26 +25,35 @@ class Board extends Component {
       }) 
       .catch((error) => {
         this.setState({
-          error: 'Sorry, could not load a list of cards :('
+          error: error.message
         })
       });
   }
 
   deleteCard = (cardId) => {
-    const cardList = this.state.cards.filter((card) => {
-      return card.id !== cardId;
-    });
-
-    this.setState({
-      cards: cardList,
-    });
-  }
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardId}`)
+      .then(() => {
+        const cardList = this.state.cards.filter((card) => 
+          card.card.id !== cardId
+        )
+        
+        this.setState({
+          cards: cardList,
+          error: '',
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message
+        });
+      });
+  };
 
   allCards = () => {
     return this.state.cards.map((card) => {
-      console.log(card)
       return <Card
         key={card.card.id}
+        id={card.card.id}
         {...card.card}
         deleteCardCallback={this.deleteCard}
       />
@@ -53,8 +62,7 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
-        Board
+      <div className='board'>
         {this.allCards()}
       </div>
     )

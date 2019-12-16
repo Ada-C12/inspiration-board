@@ -4,7 +4,9 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
+
 class Card extends Component {
+  
   
   constructor(props) {
     super(props);
@@ -14,18 +16,23 @@ class Card extends Component {
   }
   
   render() {
+    const currentEmoji = this.props.emoji
     return (
       <div className="card">
-        {this.props.text}
+        <section className='card__content'>
+          <section className='card__content-emoji'>{currentEmoji ? emoji.getUnicode(currentEmoji) : null}</section>
+          <section className='card__content-text'>{this.props.text} </section>
+        </section>
+        <button className='card__delete' type='button' onClick={() => { this.props.deleteCardCallback(this.props.id) } }>Delete</button>
       </div>
     )
   }
 }
 
 Card.propTypes = {
-  key: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  emoji: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  text: PropTypes.string,
+  emoji: PropTypes.string,
   deleteCardCallback: PropTypes.func.isRequired,
 };
 
