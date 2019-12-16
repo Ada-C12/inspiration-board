@@ -10,7 +10,7 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__content">
-        <div className="card__content-text">{text}</div>
+        <div className="card__content-text">{text ? text : ''}</div>
         <div className="card__content-emoji">{ curEmoji ? emoji.getUnicode(curEmoji) : ''}</div>
         <button className="card__delete" onClick={() => {deleteCardCallback(id) }}>Delete</button>
       </div>
