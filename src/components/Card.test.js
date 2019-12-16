@@ -1,13 +1,17 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react'
-import NewCardForm from './NewCardForm';
+import Card from './Card';
 
 describe('NewCardForm', () => {
   test('that it matches the existing snapshot', () => {
     // Arrange-Act
     const { asFragment } = render(
-      <NewCardForm
-        addCardCallback={() => { }}
+      <Card
+        key = {3}
+        id = {3}
+        text = {'You are cute and cuddly'}
+        emoji = {'sparkling_heart'}
+        deleteCardCallback={() => { }}
       />
     );
 
