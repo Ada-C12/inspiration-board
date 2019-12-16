@@ -59,9 +59,10 @@ class Board extends Component {
     };
 
   addCard = (card) =>{
-    axios.post(this.state.url+this.state.boardName+'/cards', card)
+    axios.post(this.state.url+this.state.boardName+'/cards', {text: card.text, emoji: card.curEmoji})
       .then((response) => {
         console.log(response.data)
+        console.log(`passed in data: ${card}`)
         const { board } = this.state;
         const newCard = {
           "card": {

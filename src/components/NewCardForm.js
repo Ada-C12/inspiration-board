@@ -34,14 +34,15 @@ class NewCardForm extends Component {
     event.preventDefault();
     const message = {
       text: this.state.text,
-      curEmoji: this.state.curEmoji
+      curEmoji: this.state.curEmoji,
     }
+    console.log(message)
     console.log('state updated')
     this.setState({
       text: '',
       curEmoji: '',
     })
-    console.log('calling callback function')
+    console.log(`calling callback function with ${message.curEmoji}`)
     this.props.addCardCallback(message)
   }
 
@@ -52,12 +53,12 @@ class NewCardForm extends Component {
           <label htmlFor="text">Text: </label>
           <input
             name="text"
-            value={this.state.text} 
+            value={this.state.text}
             onChange={this.onTextChange}
           />
         </div>
         <div>
-          <label htmlFor="emoji">Emoji: </label>
+          <label htmlFor="curEmoji">Emoji: </label>
           <input
             name="curEmoji"
             value={this.state.curEmoji}
