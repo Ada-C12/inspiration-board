@@ -4,7 +4,7 @@ import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 import { throwStatement } from '@babel/types';
 
-// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 
 class NewCardForm extends Component {
   constructor(props) {
@@ -36,10 +36,23 @@ class NewCardForm extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const { comment, emoji } = this.state;
+    const newCard = {
+      id: this.state.id,
+      text: this.state.text,
+      emoji: this.state.emoji,
+    };
 
-    this.props.addCardCallback(this.state)
+    this.props.addCardCallback(newCard)
     this.resetState();
+  }
+
+  createEmojis = () => {
+    const emojiList = EMOJI_LIST.map((text) => {
+      return (
+        <option value={text}>{emoji.getUnicode(text)}</option>
+      )
+    });
+    return emojiList;
   }
 
   render() {
@@ -59,12 +72,13 @@ class NewCardForm extends Component {
         </div>
       
         <div className='new-card-form__form-label'>Emoji
-          <input type='text'
+          <select
           htmlFor='emoji'
-          placeholder='type a message'
-          className='new-card-form__form-textarea'
+          className='new-card-form__form-select'
           onChange={this.onInputChange}
-          value={this.state.emoji} />
+          value={this.state.emoji}>
+          {this.createEmojis()}
+          </select>
         </div>
 
 

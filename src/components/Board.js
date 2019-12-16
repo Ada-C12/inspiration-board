@@ -46,22 +46,45 @@ class Board extends Component {
               {...card} />)
     })
   }
-  
-  //componentDidMount get request to get cards from api
 
   //addCard
+  addCard = (card) => {
+    axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
+    .then((response) => {
+      console.log(response);
+      card.id = response.data.card.id;
+
+      this.setState({
+        cards,
+      });
+    })
+    .catch((response) => {
+      console.log(response);
+      this.setState({
+        message: `${response.data}`,
+      })
+    })
+    const cards = this.state.cards;
+    cards.push(card);
+
+    this.setState({
+      cards,
+    });
+  }
 
   //deleteCard
+
   render() {
     return (
-      <div className='board'>
-        <section >{this.cardList()} 
+      <div>
+        <section> <NewCardForm addCardCallback={this.addCard}/>
+        </section>
+
+        <section className='board'>{this.cardList()} 
         </section>
         
+  
       
-
-      <section> <NewCardForm />
-      </section>
 
       </div>
     )
@@ -70,7 +93,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  boardName: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default Board;
