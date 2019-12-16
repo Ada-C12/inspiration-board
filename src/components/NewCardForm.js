@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
@@ -71,6 +71,11 @@ class NewCardForm extends Component {
       </div>
     )
   }
+};
+
+
+NewCardForm.propTypes = {
+  addCardCallback: PropTypes.func,
 };
 
 export default NewCardForm;

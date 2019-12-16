@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 
 import './Card.css';
@@ -27,8 +27,12 @@ class Card extends Component {
   }
 }
 
-// Card.propTypes = {
-
-// };
+Card.propTypes = {
+  text: PropTypes.string,
+  emoji: PropTypes.string,
+  id: PropTypes.number,
+  key: PropTypes.number,
+  deleteCardCallback: PropTypes.func,
+};
 
 export default Card;
