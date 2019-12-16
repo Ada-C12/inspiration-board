@@ -1,18 +1,20 @@
 import React from 'react';
 import {render, cleanup} from '@testing-library/react';
-import NewCardForm from './NewCardForm.js';
-import cards from '../data/card-data.json';
+import Card from '../Card.js';
+import cards from '../../data/card-data.json';
 
-const addCard = jest.fn();
+let testCard = {
+    id: 1,
+    ...cards.cards[0]
+};
 
-describe('NewCardForm', () => {
+describe('Card', () => {
     test('that it matches the existing snapshot', () => {
         const {asFragment} = render(
-            <NewCardForm addCardCallBack={addCard}></NewCardForm>
+            <Card cardData={testCard}></Card>
         )
 
         expect(asFragment()).toMatchSnapshot();
     });
-
     afterEach(cleanup);
 });

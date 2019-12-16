@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card that it matches the existing snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="card card__content"
+  >
+    <p
+      class="card__content-text"
+    >
+      Make sure you pet a dog this week!
+    </p>
+    <p
+      class="card__content-emoji"
+    />
+    <section>
+      <button
+        aria-label="Close"
+        class="card__delete"
+        type="button"
+      >
+        Delete
+      </button>
+    </section>
+  </section>
+</DocumentFragment>
+`;

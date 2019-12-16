@@ -33,3 +33,10 @@ h1, h2 {
 
   transform: rotate(-3deg) skew(-3deg);
 }
+
+.new-board-select{
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.25em;
+  grid-column: controls;
+  grid-row: auto;
+}
