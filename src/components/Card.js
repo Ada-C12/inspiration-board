@@ -5,15 +5,17 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
       <div className="card">
-        <p>{this.props.text}</p>
-        <p>{this.props.emoji ? emoji.getUnicode(this.props.emoji) : ''}</p>
+        <button
+        onClick={() => {this.props.deleteCardCallback(this.props.id)}}>Delete</button>
+        <section>
+          <p>{this.props.text}</p>
+          <p>{this.props.emoji ? emoji.getUnicode(this.props.emoji) : ''}</p>
+        </section>
+
       </div>
     )
   }

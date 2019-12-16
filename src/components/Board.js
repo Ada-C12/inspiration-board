@@ -13,13 +13,14 @@ class Board extends Component {
 
     this.state = {
       cards: [],
-      cardsUrl: this.props.url + this.props.boardName,
+      cardsUrl: this.props.url + this.props.boardName + '/cards',
+      error: '',
     };
 
   }
 
   componentDidMount() {
-    axios.get(this.state.cardsUrl + '/cards')
+    axios.get(this.state.cardsUrl)
       .then((response) => {
         const cardObjects = response.data.map((cardInfo) => {
           return (
@@ -38,6 +39,24 @@ class Board extends Component {
       });
   }
 
+  
+
+  deleteCard = (cardId) => {
+
+    axios.delete(this.state.cardsUrl + `/${cardId}`)
+    .then(() => {
+      const allButOneCard = this.state.cards.filter((card) => card.id !==cardId)
+      this.setState({
+        cards: allButOneCard,
+      });
+    })
+    .catch((error) => {
+      this.setState({
+        error: error.message,
+      });
+    });
+  }
+
   cardList = () => {
     return (
       this.state.cards.map((card,i) => {
@@ -46,6 +65,8 @@ class Board extends Component {
             key={i}
             text={card.text}
             emoji={card.emoji}
+            deleteCardCallback={this.deleteCard}
+
           />
         )
       })
