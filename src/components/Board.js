@@ -10,7 +10,6 @@ import NewCardForm from './NewCardForm';
 class Board extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
 //      cards: CARD_DATA.cards,
       url: props.url,
@@ -84,7 +83,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string,
+  boardName: PropTypes.string
 };
 
 export default Board;

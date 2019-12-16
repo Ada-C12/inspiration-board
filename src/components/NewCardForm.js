@@ -73,4 +73,11 @@ class NewCardForm extends Component {
     );
   }
 }
+
+NewCardForm.propTypes = {
+  text:PropTypes.string,
+  curEmoji: PropTypes.string,
+  addCardCallback:PropTypes.func
+};
+
 export default NewCardForm
