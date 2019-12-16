@@ -47,7 +47,6 @@ class Board extends Component {
     })
   }
 
-  //addCard
   addCard = (card) => {
     axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
     .then((response) => {
@@ -82,10 +81,7 @@ class Board extends Component {
 
         <section className='board'>{this.cardList()} 
         </section>
-        
-  
-      
-
+    
       </div>
     )
   }
