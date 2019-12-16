@@ -33,6 +33,21 @@ class Board extends Component {
       });
   };
 
+  addCard = (card) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/georgina/cards`, card)
+    .then((response) => {
+      const updatedCards = this.state.cards;
+      updatedCards.push(response.data);
+      this.setState({
+        cards: updatedCards,
+        error: ''
+      });
+    })
+    .catch((error) => {
+      this.setState({ error: error.message });
+    });
+  };
+
 
   componentDidMount() {
     axios.get('https://inspiration-board.herokuapp.com/boards/georgina/cards')
@@ -51,6 +66,7 @@ class Board extends Component {
         text={card.card.text}
         emoji={card.card.emoji}
         deleteCardCallback={this.deleteCard}
+        key={i}
       />;
     }
     );
@@ -64,6 +80,9 @@ class Board extends Component {
         <ul>
           {this.makeCardsCollection()}
         </ul>
+        <section>
+          <NewCardForm addCardCallback={this.addCard} />
+        </section>
       </div>
     )
   }
