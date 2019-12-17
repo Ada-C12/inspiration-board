@@ -45,7 +45,7 @@ class NewCardForm extends React.Component {
           <label>Emoji</label>
           <select value={this.state.emoji} onChange={this.handleEmojiChange}>
             {EMOJI_LIST.map(v => {
-              return <option value={v}>{emoji.getUnicode(v)}</option>;
+              return <option key = {v} value={v}>{emoji.getUnicode(v)}</option>;
             })}
           </select>
 

@@ -33,7 +33,7 @@ class Board extends Component {
       })
 
     return (
-      <div>
+      <div className="board">
         {this.state.cards.map(card => {
           return (
             <Card onDelete={this.deleteCardHandler} id={card["card"]["id"]} text={card["card"]["text"]} emoji={card["card"]["emoji"]} />
@@ -45,9 +45,5 @@ class Board extends Component {
   }
 
 }
-
-Board.propTypes = {
-
-};
 
 export default Board;
