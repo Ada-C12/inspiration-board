@@ -22,15 +22,18 @@ class Board extends Component {
     axios.delete(this.props.url.concat("cards/",cardId))
       .then(res => {
         this.forceUpdate()
+    
       });
     }
-
+    componentDidMount(){
+      axios.get(this.props.url.concat(this.props.boardName,"/cards"))
+            .then(res => {
+              const cards = res.data;
+              this.setState({ cards});
+            })
+      }
   render() {
-    axios.get(this.props.url.concat(this.props.boardName,"/cards"))
-      .then(res => {
-        const cards = res.data;
-        this.setState({ cards});
-      })
+ 
 
     return (
       <div className="board">
