@@ -10,7 +10,6 @@ class App extends Component {
     this.state = {
       boardName: 'xinran'
     };
-
   }
 
   onBoardChange = (event) => {
